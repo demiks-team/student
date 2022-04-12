@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../student/shared-widgets/menu/bottom_navigation.dart';
+import '../../authentication/services/authentication_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -9,6 +10,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final authenticationService = AuthenticationService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: TextField(
+                  controller: _emailController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email',
@@ -36,6 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.only(
                   left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextField(
+                controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -52,9 +59,16 @@ class _LoginScreenState extends State<LoginScreen> {
               child: ElevatedButton(
                 child: Text('Login'),
                 style: ElevatedButton.styleFrom(primary: Color(0xFFf89a1f)),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => BottomNavigation()));
+                onPressed: () async {
+                  var username = _emailController.text;
+                  var password = _passwordController.text;
+                  var response =
+                      await authenticationService.login(username, password);
+                  if (response != null) {
+                    // storage.write(key: "jwt", value: jwt);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => BottomNavigation()));
+                  }
                 },
               ),
             ),
