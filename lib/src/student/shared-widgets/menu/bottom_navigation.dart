@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../screens/class_screen.dart';
-import '../../screens/dashboard_screen.dart';
-import '../../screens/invoice_screen.dart';
+import '../../screens/class/class_screen.dart';
+import '../../screens/dashboard/dashboard_screen.dart';
+import '../../screens/invoice/invoice_screen.dart';
 import '../sign_out.dart';
 
 class BottomNavigation extends StatefulWidget {
