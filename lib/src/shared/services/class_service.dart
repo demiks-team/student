@@ -1,34 +1,38 @@
 import 'dart:convert';
-import 'package:http/http.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../../authentication/helpers/dio/dio_api.dart';
 import '../models/class_model.dart';
 
 class ClassService {
-  final String classesURL = "https://jsonplaceholder.typicode.com/posts";
 
-  Future<List<Class>> getClasses() async {
-    Response response = await get(Uri.parse(classesURL));
+  Future<List<ClassModel>> getClasses() async {
+
+    var response =
+        await DioApi().dio.get(dotenv.env['api'].toString() + "groups/list");
 
     if (response.statusCode == 200) {
-      List<dynamic> body = jsonDecode(response.body);
+      Map<String, dynamic> decodedList = jsonDecode(json.encode(response.data));
+      var classList = decodedList["data"] as List;
 
-      List<Class> classes = body
+      List<ClassModel> classes = classList
           .map(
-            (dynamic item) => Class.fromJson(item),
+            (dynamic item) => ClassModel.fromJson(item),
           )
           .toList();
-
       return classes;
     } else {
       throw "Unable to retrieve classes.";
     }
   }
 
-  Future<Class> getClass(int id) async {
-    Response response = await get(Uri.parse(classesURL + '/$id'));
+  Future<ClassModel> getClass(int id) async {
+
+    var response = await DioApi().dio.get(dotenv.env['api'].toString() + "groups/group/" + id.toString());
+
+    Map<String, dynamic> decodedList = jsonDecode(json.encode(response.data));
 
     if (response.statusCode == 200) {
-      return Class.fromJson(json.decode(response.body));
+      return ClassModel.fromJson(decodedList);
     } else {
       throw Exception('Unable to retrieve class.');
     }

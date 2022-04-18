@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'shared/helpers.dart';
+import 'shared/helpers/material_color.dart';
 import 'site/screens/login_screen.dart';
 
 class App extends StatelessWidget {
@@ -10,9 +9,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Student App',
-      theme: ThemeData(primarySwatch: buildMaterialColor(const Color(0xffffffff))),
-      home: LoginScreen(),
+      title: 'Demiks Student App',
+      theme:
+          ThemeData(primarySwatch: buildMaterialColor(const Color(0xffffffff))),
+      home: const LoginScreen(),
     );
   }
 }

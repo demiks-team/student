@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:student/src/shared/theme/colors/demiks_colors.dart';
 
+import '../../../shared/helpers/hex_color.dart';
 import '../../screens/class/class_screen.dart';
 import '../../screens/dashboard/dashboard_screen.dart';
 import '../../screens/invoice/invoice_screen.dart';
@@ -13,51 +16,47 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  int _selectedIndex = 0;
-
-  static const List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _tabs = const <Widget>[
     DashboardScreen(),
     ClassScreen(),
     InvoiceScreen(),
-    SignOutWidget()
+    SignOutWidget(),
   ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
+    return CupertinoPageScaffold(
+      child: CupertinoTabScaffold(
+          tabBar: CupertinoTabBar(
+            backgroundColor: HexColor.fromHex('#fafafa'),
+            activeColor: HexColor.fromHex(DemiksColors.accentColor),
+            inactiveColor: Colors.grey,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.dashboard),
+                label: 'Dashboard',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.group),
+                label: 'Classes',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.receipt),
+                label: 'Invoices',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.logout),
+                label: 'Sign out',
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: 'Classes',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt),
-            label: 'Invoices',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.logout),
-            label: 'Sign out',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
+          tabBuilder: (BuildContext context, index) {
+            return CupertinoTabView(
+              builder: (BuildContext context) {
+                return _tabs[index];
+              },
+            );
+          }),
     );
   }
 }
