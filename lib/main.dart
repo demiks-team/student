@@ -9,5 +9,7 @@ Future<void> main() async {
   } else {
     await dotenv.load(fileName: "environments/.env.development");
   }
+
+
   runApp(const App());
 }

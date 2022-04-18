@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../shared/secure_storage.dart';
 import '../../student/shared-widgets/menu/bottom_navigation.dart';
 import '../../authentication/services/authentication_service.dart';
 
@@ -13,6 +14,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final authenticationService = AuthenticationService();
+
+  @override
+  initState() {
+    super.initState();
+    // var currentUser = SharedPreference.getCurrentUser();
+    // if (currentUser != null) {
+    //   Navigator.push(
+    //       context, MaterialPageRoute(builder: (_) => BottomNavigation()));
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +76,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   var response =
                       await authenticationService.login(username, password);
                   if (response != null) {
-                    // storage.write(key: "jwt", value: jwt);
+                    await SecureStorage.setCurrentUser(response);
+                    // var result = SecureStorage.getCurrentUser();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => BottomNavigation()));
                   }
@@ -76,3 +88,5 @@ class _LoginScreenState extends State<LoginScreen> {
         )));
   }
 }
+
+class window {}

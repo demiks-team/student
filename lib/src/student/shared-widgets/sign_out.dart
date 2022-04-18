@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../shared/secure_storage.dart';
 import '../../site/screens/login_screen.dart';
 import 'menu/bottom_navigation.dart';
 
@@ -14,8 +15,9 @@ class SignOutWidget extends StatelessWidget {
         TextButton(
           style: TextButton.styleFrom(primary: Colors.green),
           onPressed: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (_) => LoginScreen()));
+            SecureStorage.removeCurrentUser();
+            Navigator.of(context, rootNavigator: true)
+                .push(MaterialPageRoute(builder: (_) => LoginScreen()));
           },
           child: const Text('Yes'),
         ),
@@ -29,28 +31,3 @@ class SignOutWidget extends StatelessWidget {
     );
   }
 }
-
-
-//  return TextButton(
-//       onPressed: () => showDialog<String>(
-//         context: context,
-//         builder: (BuildContext context) => AlertDialog(
-//           title: const Text('AlertDialog Title'),
-//           content: const Text('AlertDialog description'),
-//           actions: <Widget>[
-//             TextButton(
-//               onPressed: () => Navigator.pop(context, 'Cancel'),
-//               child: const Text('Cancel'),
-//             ),
-//             TextButton(
-//               onPressed: () {
-//                 Navigator.push(
-//                     context, MaterialPageRoute(builder: (_) => LoginScreen()));
-//               },
-//               child: const Text('Yes'),
-//             ),
-//           ],
-//         ),
-//       ),
-//       child: const Text('Show Dialog'),
-//     );
