@@ -35,14 +35,28 @@ class _ClassDetailsState extends State<ClassDetails> {
                   child: Text('Drawer Header'),
                 ),
                 ListTile(
-                  title: const Text('Item 1'),
+                  title: const Text('Details'),
                   onTap: () {
                     // Update the state of the app.
                     // ...
                   },
                 ),
                 ListTile(
-                  title: const Text('Item 2'),
+                  title: const Text('Class Material'),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  title: const Text('Quiz & Grades'),
+                  onTap: () {
+                    // Update the state of the app.
+                    // ...
+                  },
+                ),
+                ListTile(
+                  title: const Text('Homework'),
                   onTap: () {
                     // Update the state of the app.
                     // ...

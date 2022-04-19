@@ -26,7 +26,7 @@ class ClassList extends StatelessWidget {
           if (classes != null) {
             return _buildClasses(context, classes);
           } else {
-            return const Text('This class list is Nullllllllll');
+            return const Text('This class list is empty');
           }
         } else {
           return Center(
@@ -47,6 +47,13 @@ class ClassList extends StatelessWidget {
         return Card(
             elevation: 4,
             child: ListTile(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) =>
+                            ClassDetails(classId: classes[index].id)));
+              },
               title: Container(
                   margin: const EdgeInsets.only(top: 15),
                   child: Text(
@@ -105,11 +112,11 @@ class ClassList extends StatelessWidget {
                             iconSize: 30,
                             icon: const Icon(Icons.link),
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => ClassDetails(
-                                          classId: classes[index].id)));
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (_) => ClassDetails(
+                              //             classId: classes[index].id)));
                             },
                           ),
                         ],

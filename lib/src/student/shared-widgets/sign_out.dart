@@ -17,14 +17,14 @@ class SignOutWidget extends StatelessWidget {
           onPressed: () {
             SecureStorage.removeCurrentUser();
             Navigator.of(context, rootNavigator: true)
-                .push(MaterialPageRoute(builder: (_) => LoginScreen()));
+                .push(MaterialPageRoute(builder: (_) => const LoginScreen()));
           },
           child: const Text('Yes'),
         ),
         TextButton(
           style: TextButton.styleFrom(primary: Colors.purple),
           onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (_) => BottomNavigation())),
+              context, MaterialPageRoute(builder: (_) => const BottomNavigation())),
           child: const Text('Cancel'),
         ),
       ],

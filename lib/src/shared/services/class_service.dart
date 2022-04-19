@@ -4,9 +4,7 @@ import '../../authentication/helpers/dio/dio_api.dart';
 import '../models/class_model.dart';
 
 class ClassService {
-
   Future<List<ClassModel>> getClasses() async {
-
     var response =
         await DioApi().dio.get(dotenv.env['api'].toString() + "groups/list");
 
@@ -26,8 +24,9 @@ class ClassService {
   }
 
   Future<ClassModel> getClass(int id) async {
-
-    var response = await DioApi().dio.get(dotenv.env['api'].toString() + "groups/group/" + id.toString());
+    var response = await DioApi()
+        .dio
+        .get(dotenv.env['api'].toString() + "groups/group/" + id.toString());
 
     Map<String, dynamic> decodedList = jsonDecode(json.encode(response.data));
 
