@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../authentication/models/user_model.dart';
+import '../../shared/helpers/hex_color.dart';
 import '../../shared/secure_storage.dart';
+import '../../shared/theme/colors/demiks_colors.dart';
 import '../../student/shared-widgets/menu/bottom_navigation.dart';
 import '../../authentication/services/authentication_service.dart';
 
@@ -14,16 +17,22 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final authenticationService = AuthenticationService();
+  
+  // UserModel? currentUser;
 
-  @override
-  initState() {
-    super.initState();
-    // var currentUser = SharedPreference.getCurrentUser();
-    // if (currentUser != null) {
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (_) => BottomNavigation()));
-    // }
-  }
+  // @override
+  // initState() {
+  //   super.initState();
+  //   getCurrentUser();
+  // }
+
+  // getCurrentUser() async {
+  //   currentUser = await SecureStorage.getCurrentUser();
+  //   if (currentUser != null) {
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (_) => const BottomNavigation()));
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
                     hintText: 'Enter password'),
@@ -64,11 +73,11 @@ class _LoginScreenState extends State<LoginScreen> {
             Container(
               height: 50,
               width: 250,
-              margin: EdgeInsets.all(20),
+              margin: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
               child: ElevatedButton(
-                child: Text('Login'),
+                child: const Text('Login'),
                 style: ElevatedButton.styleFrom(primary: Color(0xFFf89a1f)),
                 onPressed: () async {
                   var username = _emailController.text;
@@ -78,8 +87,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (response != null) {
                     await SecureStorage.setCurrentUser(response);
                     // var result = SecureStorage.getCurrentUser();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => BottomNavigation()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const BottomNavigation()));
                   }
                 },
               ),
@@ -88,5 +99,3 @@ class _LoginScreenState extends State<LoginScreen> {
         )));
   }
 }
-
-class window {}
