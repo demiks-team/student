@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student/src/shared/services/group_service.dart';
 import 'package:student/src/student/screens/group/group_details_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../shared/helpers/hex_color.dart';
 import '../../../shared/models/group_model.dart';
@@ -34,7 +35,7 @@ class GroupListScreen extends StatelessWidget {
               return const Center(child: Text('Class list is empty'));
             }
           } else {
-            return const Center(child: Text('Class list is null'));
+            return Text(AppLocalizations.of(context)!.noClass);
           }
         } else {
           return Center(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:student/src/shared/theme/colors/demiks_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../shared/helpers/hex_color.dart';
 import '../../screens/group/group_list_screen.dart';
@@ -34,19 +35,19 @@ class _BottomNavigationState extends State<BottomNavigation> {
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.dashboard),
-                label: 'Dashboard',
+                label: AppLocalizations.of(context)!.dashboard,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.group),
-                label: 'Classes',
+                label: AppLocalizations.of(context)!.classes,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.receipt),
-                label: 'Invoices',
+                label: AppLocalizations.of(context)!.invoices,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.logout),
-                label: 'Sign out',
+                label: AppLocalizations.of(context)!.signOut,
               ),
             ],
           ),
