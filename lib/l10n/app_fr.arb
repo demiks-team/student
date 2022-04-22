@@ -1,0 +1,18 @@
+{
+    "drawerHeader": "En-tête de tiroir",
+    "details": "Des détails",
+    "learningMaterial": "Matériel de cours",
+    "quizGrades": "Quiz & Grades",
+    "homework": "Devoirs",
+    "welcome": "Bienvenu",
+    "dashboard": "Tableau de bord",
+    "classes": "Classes",
+    "invoices": "Factures",
+    "signOut": "Déconnexion",
+    "noClass": "Il n'y a pas de cours pour vous pour le moment.",
+    "login": "Se connecter",
+    "email": "Courriel",
+    "enterValidEmail": "Entrez un e-mail valide comme example@email.com",
+    "password": "Mot de passe",
+    "enterPassword": "Entrer le mot de passe"
+}

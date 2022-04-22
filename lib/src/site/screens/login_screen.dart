@@ -5,6 +5,7 @@ import '../../shared/secure_storage.dart';
 import '../../shared/theme/colors/demiks_colors.dart';
 import '../../student/shared-widgets/menu/bottom_navigation.dart';
 import '../../authentication/services/authentication_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final authenticationService = AuthenticationService();
-  
+
   // UserModel? currentUser;
 
   // @override
@@ -55,8 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Email',
-                      hintText: 'Enter valid email as example@email.com'),
+                      labelText: AppLocalizations.of(context)!.email,
+                      hintText: AppLocalizations.of(context)!.enterValidEmail),
                 )),
             Padding(
               padding: const EdgeInsets.only(
@@ -64,10 +65,10 @@ class _LoginScreenState extends State<LoginScreen> {
               child: TextField(
                 controller: _passwordController,
                 obscureText: true,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Password',
-                    hintText: 'Enter password'),
+                    labelText: AppLocalizations.of(context)!.password,
+                    hintText: AppLocalizations.of(context)!.enterPassword),
               ),
             ),
             Container(
@@ -77,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
               child: ElevatedButton(
-                child: const Text('Login'),
+                child: Text(AppLocalizations.of(context)!.login),
                 style: ElevatedButton.styleFrom(primary: Color(0xFFf89a1f)),
                 onPressed: () async {
                   var username = _emailController.text;

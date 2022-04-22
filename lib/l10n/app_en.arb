@@ -1,0 +1,18 @@
+{
+    "drawerHeader": "Drawer Header",
+    "details": "Details",
+    "learningMaterial": "Class Material",
+    "quizGrades": "Quiz & Grades",
+    "homework": "Homework",
+    "welcome": "Welcome",
+    "dashboard": "Dashboard",
+    "classes": "Classes",
+    "invoices": "Invoices",
+    "signOut": "Sign Out",
+    "noClass": "There are no classes for you at the moment.",
+    "login": "Login",
+    "email": "Email",
+    "enterValidEmail": "Enter valid email as example@email.com",
+    "password": "Password",
+    "enterPassword": "Enter password"
+}

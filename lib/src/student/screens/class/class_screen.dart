@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student/src/student/widgets/class/class_list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ClassScreen extends StatelessWidget {
   const ClassScreen({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class ClassScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Classes'),
+          title: Text(AppLocalizations.of(context)!.classes),
           automaticallyImplyLeading: false,
         ),
         body: ClassList()

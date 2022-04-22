@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../shared/secure_storage.dart';
 import '../../site/screens/login_screen.dart';
 import 'menu/bottom_navigation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SignOutWidget extends StatelessWidget {
   const SignOutWidget({Key? key}) : super(key: key);
@@ -23,8 +24,8 @@ class SignOutWidget extends StatelessWidget {
         ),
         TextButton(
           style: TextButton.styleFrom(primary: Colors.purple),
-          onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (_) => const BottomNavigation())),
+          onPressed: () => Navigator.push(context,
+              MaterialPageRoute(builder: (_) => const BottomNavigation())),
           child: const Text('Cancel'),
         ),
       ],

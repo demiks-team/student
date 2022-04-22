@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student/src/shared/services/class_service.dart';
 import 'package:student/src/student/screens/class/class_details_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../shared/helpers/hex_color.dart';
 import '../../../shared/models/class_model.dart';
@@ -26,7 +27,7 @@ class ClassList extends StatelessWidget {
           if (classes != null) {
             return _buildClasses(context, classes);
           } else {
-            return const Text('This class list is empty');
+            return Text(AppLocalizations.of(context)!.noClass);
           }
         } else {
           return Center(
