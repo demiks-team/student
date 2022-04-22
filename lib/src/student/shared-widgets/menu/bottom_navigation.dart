@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:student/src/shared/theme/colors/demiks_colors.dart';
 
 import '../../../shared/helpers/hex_color.dart';
-import '../../screens/class/class_screen.dart';
+import '../../screens/group/group_list_screen.dart';
 import '../../screens/dashboard/dashboard_screen.dart';
 import '../../screens/invoice/invoice_screen.dart';
 import '../sign_out.dart';
@@ -18,7 +18,7 @@ class BottomNavigation extends StatefulWidget {
 class _BottomNavigationState extends State<BottomNavigation> {
   final List<Widget> _tabs = const <Widget>[
     DashboardScreen(),
-    ClassScreen(),
+    GroupListScreen(),
     InvoiceScreen(),
     SignOutWidget(),
   ];
@@ -30,7 +30,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           tabBar: CupertinoTabBar(
             backgroundColor: HexColor.fromHex('#fafafa'),
             activeColor: HexColor.fromHex(DemiksColors.accentColor),
-            inactiveColor: Colors.grey,
+            inactiveColor: HexColor.fromHex(DemiksColors.backgroundColorGray),
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.dashboard),

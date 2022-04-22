@@ -1,15 +1,15 @@
 
+// https://chir.ag/projects/name-that-color/
+
 class DemiksColors {
+
+  // ------------------ Main colors demiks ------------------
   static const primaryColor = '#067a6c';
   static const accentColor = '#faa61a';
-  static const backgroundColor = '#c1f2e8';
-
-// bg color: #c1f2e8
-
-// bg gray: #d3d3d3
-
-// bg gray: #888888
-
-// bg gray: #333333
+  static const backgroundColorMintTulip = '#c1f2e8';
+  static const backgroundColorAlto = "#d3d3d3";
+  static const backgroundColorGray = "#888888";
+  static const backgroundColorMineShaft = "#333333";
+  // --------------------------------------------------------
 
 }

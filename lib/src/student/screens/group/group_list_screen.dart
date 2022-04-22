@@ -1,32 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:student/src/shared/services/class_service.dart';
-import 'package:student/src/student/screens/class/class_details_screen.dart';
+import 'package:student/src/shared/services/group_service.dart';
+import 'package:student/src/student/screens/group/group_details_screen.dart';
 
 import '../../../shared/helpers/hex_color.dart';
-import '../../../shared/models/class_model.dart';
+import '../../../shared/models/group_model.dart';
 import '../../../shared/theme/colors/demiks_colors.dart';
 
-class ClassList extends StatelessWidget {
-  const ClassList({Key? key}) : super(key: key);
+class GroupListScreen extends StatelessWidget {
+  const GroupListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Classes'),
+        automaticallyImplyLeading: false,
+      ),
       body: _buildBody(context),
     );
   }
 
-  FutureBuilder<List<ClassModel>> _buildBody(BuildContext context) {
-    final ClassService classService = ClassService();
-    return FutureBuilder<List<ClassModel>>(
-      future: classService.getClasses(),
+  FutureBuilder<List<GroupModel>> _buildBody(BuildContext context) {
+    final GroupService groupService = GroupService();
+    return FutureBuilder<List<GroupModel>>(
+      future: groupService.getGroups(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          final List<ClassModel>? classes = snapshot.data;
+          final List<GroupModel>? classes = snapshot.data;
           if (classes != null) {
-            return _buildClasses(context, classes);
+            if (classes.isNotEmpty) {
+              return _buildClasses(context, classes);
+            } else {
+              return const Center(child: Text('Class list is empty'));
+            }
           } else {
-            return const Text('This class list is empty');
+            return const Center(child: Text('Class list is null'));
           }
         } else {
           return Center(
@@ -39,10 +47,10 @@ class ClassList extends StatelessWidget {
     );
   }
 
-  ListView _buildClasses(BuildContext context, List<ClassModel>? classes) {
+  ListView _buildClasses(BuildContext context, List<GroupModel>? groups) {
     return ListView.builder(
-      itemCount: classes!.length,
-      padding: const EdgeInsets.only(top: 25, left: 35, right: 35),
+      itemCount: groups!.length,
+      padding: const EdgeInsets.only(top: 25, left: 35, right: 35, bottom: 25),
       itemBuilder: (context, index) {
         return Card(
             elevation: 4,
@@ -52,12 +60,12 @@ class ClassList extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (_) =>
-                            ClassDetails(classId: classes[index].id)));
+                            GroupDetailsScreen(groupId: groups[index].id)));
               },
               title: Container(
                   margin: const EdgeInsets.only(top: 15),
                   child: Text(
-                    classes[index].title.toString(),
+                    groups[index].title.toString(),
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 20),
                   )),
@@ -71,7 +79,7 @@ class ClassList extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
                               child:
-                                  Text(classes[index].school!.name.toString()),
+                                  Text(groups[index].school!.name.toString()),
                             ),
                           ]),
                       Row(
@@ -80,21 +88,10 @@ class ClassList extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
                               child: Text(
-                                  classes[index].teacher!.fullName.toString()),
+                                  groups[index].teacher!.fullName.toString()),
                             ),
                           ]),
-                      if (classes[index].course != null)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text(
-                                    classes[index].course!.name.toString()),
-                              ),
-                            ]),
-                      if (classes[index].room != null)
+                      if (groups[index].course != null)
                         Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -102,23 +99,35 @@ class ClassList extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.only(top: 5, bottom: 5),
                                 child:
-                                    Text(classes[index].room!.title.toString()),
+                                    Text(groups[index].course!.name.toString()),
+                              ),
+                            ]),
+                      if (groups[index].room != null)
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, bottom: 5),
+                                child:
+                                    Text(groups[index].room!.title.toString()),
                               ),
                             ]),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            iconSize: 30,
-                            icon: const Icon(Icons.link),
-                            onPressed: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (_) => ClassDetails(
-                              //             classId: classes[index].id)));
-                            },
-                          ),
+                        children: const <Widget>[
+                          Icon(Icons.link, size: 30),
+                          // IconButton(
+                          //   iconSize: 30,
+                          //   icon: const Icon(Icons.link),
+                          // onPressed: () {
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (_) => ClassDetails(
+                          //             groupId: classes[index].id)));
+                          //   },
+                          // ),
                         ],
                       ),
                     ],
