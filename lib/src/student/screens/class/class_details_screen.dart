@@ -3,6 +3,7 @@ import '../../../shared/helpers/hex_color.dart';
 import '../../../shared/models/class_model.dart';
 import '../../../shared/services/class_service.dart';
 import '../../../shared/theme/colors/demiks_colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ClassDetails extends StatefulWidget {
   final int classId;
@@ -31,32 +32,32 @@ class _ClassDetailsState extends State<ClassDetails> {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                const DrawerHeader(
-                  child: Text('Drawer Header'),
+                DrawerHeader(
+                  child: Text(AppLocalizations.of(context)!.drawerHeader),
                 ),
                 ListTile(
-                  title: const Text('Details'),
+                  title: Text(AppLocalizations.of(context)!.details),
                   onTap: () {
                     // Update the state of the app.
                     // ...
                   },
                 ),
                 ListTile(
-                  title: const Text('Class Material'),
+                  title: Text(AppLocalizations.of(context)!.learningMaterial),
                   onTap: () {
                     // Update the state of the app.
                     // ...
                   },
                 ),
                 ListTile(
-                  title: const Text('Quiz & Grades'),
+                  title: Text(AppLocalizations.of(context)!.quizGrades),
                   onTap: () {
                     // Update the state of the app.
                     // ...
                   },
                 ),
                 ListTile(
-                  title: const Text('Homework'),
+                  title: Text(AppLocalizations.of(context)!.homework),
                   onTap: () {
                     // Update the state of the app.
                     // ...

@@ -1,0 +1,18 @@
+{
+    "drawerHeader": "Encabezado del cajón",
+    "details": "Detalles",
+    "learningMaterial": "Material del curso",
+    "quizGrades": "Prueba & Los grados",
+    "homework": "Tarea",
+    "welcome": "Bienvenido",
+    "dashboard": "Tablero",
+    "classes": "Clases",
+    "invoices": "Facturas",
+    "signOut": "Cerrar sesión",
+    "noClass": "No hay clases para ti en este momento.",
+    "login": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "enterValidEmail": "Ingrese un correo electrónico válido como example@email.com",
+    "password": "Contraseña",
+    "enterPassword": "Introducir la contraseña"
+}
