@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:student/src/shared/helpers/navigation_service/navigation_service.dart';
 
 import '../../../shared/helpers/navigation_service/navigation_service.dart';
+import '../../../shared/secure_storage.dart';
 import '../../../site/screens/login_screen.dart';
 
 // reference : https://medium.com/dreamwod-tech/flutter-dio-framework-best-practices-668985fc75b7
@@ -27,6 +28,7 @@ class ErrorsInterceptor extends Interceptor {
           // case 400:
           //   throw BadRequestException(err.requestOptions);
           case 401:
+            SecureStorage.removeCurrentUser();
             Navigator.of(currentContext, rootNavigator: true)
                 .push(MaterialPageRoute(builder: (_) => const LoginScreen()));
             print('error 401 works!');
