@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../authentication/models/user_model.dart';
-import '../../shared/helpers/hex_color.dart';
 import '../../shared/secure_storage.dart';
-import '../../shared/theme/colors/demiks_colors.dart';
 import '../../student/shared-widgets/menu/bottom_navigation.dart';
 import '../../authentication/services/authentication_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -1,10 +1,14 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:student/src/shared/models/group_student_model.dart';
+
 import '../../authentication/helpers/dio/dio_api.dart';
 import '../models/group_file_model.dart';
 import '../models/group_learning_material_model.dart';
 import '../models/group_model.dart';
+import '../models/homework_model.dart';
+import '../models/quiz_grade_model.dart';
 
 class GroupService {
   Future<List<GroupModel>> getGroups() async {
@@ -94,6 +98,66 @@ class GroupService {
       return groupLearningMaterials;
     } else {
       throw Exception('Unable to retrieve group.');
+    }
+  }
+
+  Future<void> getFileFromGroupLearningMaterial(
+      String fileName, String guid) async {
+    // var dir = await getApplicationDocumentsDirectory();
+
+    var response = await DioApi().dio.download(
+        dotenv.env['api'].toString() +
+            "groups/file/" +
+            fileName +
+            "/" +
+            guid +
+            "/download",
+        "group-files");
+
+    if (response.statusCode != 200) {
+      throw Exception('Unable to retrieve group file.');
+    }
+  }
+
+  Future<List<QuizGradeModel>> getQuizzes(int groupId) async {
+    var response = await DioApi().dio.get(dotenv.env['api'].toString() +
+        "groups/group/" +
+        groupId.toString() +
+        "/quizzes");
+
+    if (response.statusCode == 200) {
+      List decodedList = jsonDecode(json.encode(response.data));
+
+      List<QuizGradeModel> quizGradeModel = decodedList
+          .map(
+            (dynamic item) => QuizGradeModel.fromJson(item),
+          )
+          .toList();
+
+      return quizGradeModel;
+    } else {
+      throw "Unable to retrieve quizzes.";
+    }
+  }
+
+  Future<List<HomeworkModel>> getHomeworks(int groupId) async {
+    var response = await DioApi().dio.get(dotenv.env['api'].toString() +
+        "groups/group/" +
+        groupId.toString() +
+        "/homeworks");
+
+    if (response.statusCode == 200) {
+      List decodedList = jsonDecode(json.encode(response.data));
+
+      List<HomeworkModel> homeworkList = decodedList
+          .map(
+            (dynamic item) => HomeworkModel.fromJson(item),
+          )
+          .toList();
+
+      return homeworkList;
+    } else {
+      throw "Unable to retrieve homeworks.";
     }
   }
 }

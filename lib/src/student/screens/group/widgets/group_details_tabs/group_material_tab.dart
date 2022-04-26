@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:student/src/shared/services/group_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../../shared/helpers/hex_color.dart';
+import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/models/group_file_model.dart';
 import '../../../../../shared/models/group_learning_material_model.dart';
 import '../../../../../shared/models/learning_material_model.dart';
@@ -21,26 +22,14 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
   Future<List<GroupLearningMaterialModel>>? groupLearningMaterial;
   final GroupService groupService = GroupService();
   List<GroupFileModel>? groupFileList;
+  final ScrollController controller = ScrollController();
 
   @override
   void initState() {
+    Future.delayed(Duration.zero, () async {
+      await getGroupLearningMaterialList();
+    });
     super.initState();
-
-    var futures = <Future>[];
-    futures.add(getGroupLearningMaterialFiles());
-    futures.add(getGroupLearningMaterialList());
-    Future.wait(futures);
-
-    convertGroupFilesToGroupLearning();
-
-    // Future.wait([
-    //   getGroupLearningMaterialFiles(),
-    //   getGroupLearningMaterialList(),
-    //   convertGroupFilesToGroupLearning()
-    // ]);
-    //.then((List<dynamic> responses) => responses[2]);
-
-    print("after future");
   }
 
   @override
@@ -53,42 +42,41 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
       getGroupLearningMaterialList() async {
     groupLearningMaterial =
         groupService.getGroupLearningMaterial(widget.groupId!);
+
+    await getGroupLearningMaterialFiles();
+
     return groupLearningMaterial!;
   }
 
   Future<List<GroupFileModel>> getGroupLearningMaterialFiles() async {
-    var myAAA =
-        await groupService.getGroupLearningMaterialFiles(widget.groupId!);
-    groupFileList = myAAA;
-    return myAAA;
+    var groupMaterialFile =
+        groupService.getGroupLearningMaterialFiles(widget.groupId!);
+
+    await convertGroupFilesToGroupLearning(groupMaterialFile);
+
+    return groupMaterialFile;
   }
 
-  // Future<List<GroupLearningMaterialModel>>
-  convertGroupFilesToGroupLearning() {
-    print(groupLearningMaterial.toString());
-    print(groupFileList.toString());
-    // if (groupFileList != null) {
-    //   print("if executed");
-    //   for (var gf in groupFileList!) {
-    //     print(gf.fileName);
-    //     var groupLearning =
-    //         GroupLearningMaterialModel(groupId: 0, learningMaterialId: 0);
-    //     groupLearning.learningMaterial = LearningMaterialModel(id: 0);
-    //     groupLearning.learningMaterial!.id = 0;
-    //     groupLearning.learningMaterial!.title = gf.fileName;
-    //     // groupLearning.learningMaterial!.description = gf.description;
-    //     // groupLearning.learningMaterial!.estimatedStudyTime = 25;
-    //     groupLearningMaterial!.then((value) => value.add(groupLearning));
-    //   }
-    // }
+  convertGroupFilesToGroupLearning(
+      Future<List<GroupFileModel>> groupMaterialFile) async {
+    await groupMaterialFile.then((value) => setState(() {
+          groupFileList = value;
+        }));
 
-    // groupLearningMaterial!.then((value) {
-    //   for (var item in value) {
-    //     print(item.groupId);
-    //   }
-    // });
-    print("Grouppppp");
-    // return groupLearningMaterial!;
+    if (groupFileList != null) {
+      for (var gf in groupFileList!) {
+        var groupLearning =
+            GroupLearningMaterialModel(groupId: 0, learningMaterialId: 0);
+        groupLearning.learningMaterial = LearningMaterialModel(id: 0);
+        groupLearning.learningMaterial?.id = 0;
+        groupLearning.learningMaterial?.title = gf.fileName;
+        groupLearning.learningMaterial?.description = gf.description;
+        groupLearning.learningMaterial?.estimatedStudyTime =
+            gf.estimatedStudyTime;
+        groupLearning.learningMaterial?.guid = gf.fileGuid;
+        groupLearningMaterial?.then((value) => value.add(groupLearning));
+      }
+    }
   }
 
   @override
@@ -100,13 +88,18 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
       future: groupLearningMaterial,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          final List<GroupLearningMaterialModel>? classLearningMaterials =
+          final List<GroupLearningMaterialModel>? classLearningMaterials = 
               snapshot.data;
-          if (classLearningMaterials!.isNotEmpty) {
-            return _buildClassLearningMaterials(
-                context, classLearningMaterials);
+          if (classLearningMaterials != null) {
+            if (classLearningMaterials.isNotEmpty) {
+              return _buildClassLearningMaterials(
+                  context, classLearningMaterials);
+            } else {
+              return Center(
+                  child: Text("AppLocalizations.of(context)!.noClass"));
+            }
           } else {
-            return const Center(child: Text('Class material is empty'));
+            return Center(child: Text("AppLocalizations.of(context)!.noClass"));
           }
         } else {
           return Center(
@@ -122,6 +115,7 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
   ListView _buildClassLearningMaterials(BuildContext context,
       List<GroupLearningMaterialModel>? groupLearningMaterials) {
     return ListView.builder(
+      controller: controller,
       itemCount: groupLearningMaterials!.length,
       padding: const EdgeInsets.only(top: 25, left: 35, right: 35, bottom: 25),
       itemBuilder: (context, index) {
@@ -129,23 +123,29 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
             elevation: 4,
             child: ListTile(
               title: Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  child: Text(
-                    groupLearningMaterials[index]
-                        .learningMaterial!
-                        .title
-                        .toString(),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
-                  )),
+                margin: const EdgeInsets.only(top: 10),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        groupLearningMaterials[index]
+                            .learningMaterial!
+                            .title
+                            .toString(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                    ]),
+              ),
               subtitle: Container(
                   margin: const EdgeInsets.only(left: 8, top: 5),
                   child: Column(
                     children: [
                       if (groupLearningMaterials[index]
                               .learningMaterial!
-                              .description !=
-                          null)
+                              .description
+                              ?.isNotEmpty ==
+                          true)
                         Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -171,6 +171,68 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                                   " (in minutes)"),
                             ),
                           ]),
+                      if (groupLearningMaterials[index]
+                              .learningMaterial!
+                              .body
+                              ?.isNotEmpty ==
+                          true)
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.description,
+                                    color: HexColor.fromHex(
+                                        DemiksColors.primaryColor)),
+                                onPressed: () {
+                                  showModalBottomSheet<void>(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 200,
+                                        color: Colors.white,
+                                        child: Center(
+                                          child: SingleChildScrollView(
+                                              scrollDirection: Axis.vertical,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(30),
+                                                // child: Text(
+                                                //     groupLearningMaterials[
+                                                //             index]
+                                                //         .learningMaterial!
+                                                //         .body
+                                                //         .toString()),
+                                                child: Text(
+                                                    "adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjlda  adfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjlda"),
+                                              )),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ]),
+                      if (groupLearningMaterials[index]
+                              .learningMaterial!
+                              .guid
+                              ?.isNotEmpty ==
+                          true)
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                  icon: Icon(Icons.download,
+                                      color: HexColor.fromHex(
+                                          DemiksColors.primaryColor)),
+                                  onPressed: () async => groupService
+                                      .getFileFromGroupLearningMaterial(
+                                          groupLearningMaterials[index]
+                                              .learningMaterial!
+                                              .title!,
+                                          groupLearningMaterials[index]
+                                              .learningMaterial!
+                                              .guid!)),
+                            ])
                     ],
                   )),
             ));

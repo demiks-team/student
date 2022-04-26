@@ -3,7 +3,7 @@ import 'package:student/src/shared/services/group_service.dart';
 import 'package:student/src/student/screens/group/group_details_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../shared/helpers/hex_color.dart';
+import '../../../shared/helpers/colors/hex_color.dart';
 import '../../../shared/models/group_model.dart';
 import '../../../shared/theme/colors/demiks_colors.dart';
 
