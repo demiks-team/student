@@ -11,12 +11,14 @@ class LearningMaterialModel {
     required this.id,
     this.title,
     this.description,
+    this.body,
     this.estimatedStudyTime,
     this.guid,
   });
   int id;
   String? title;
   String? description;
+  String? body;
   int? estimatedStudyTime;
   String? guid;
   factory LearningMaterialModel.fromJson(Map<String, dynamic> json) =>
@@ -24,6 +26,7 @@ class LearningMaterialModel {
         id: json["id"],
         title: json["title"],
         description: json["description"],
+        body: json["body"],
         estimatedStudyTime: json["estimatedStudyTime"],
         guid: json["guid"],
       );
@@ -31,6 +34,7 @@ class LearningMaterialModel {
         "id": id,
         "title": title,
         "description": description,
+        "body": body,
         "estimatedStudyTime": estimatedStudyTime,
         "guid": guid,
       };

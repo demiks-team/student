@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'shared/helpers/hex_color.dart';
-import 'shared/helpers/material_color.dart';
+import 'shared/helpers/colors/hex_color.dart';
+import 'shared/helpers/colors/material_color.dart';
 import 'shared/helpers/navigation_service/navigation_service.dart';
 import 'shared/secure_storage.dart';
 import 'shared/theme/colors/demiks_colors.dart';

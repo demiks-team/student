@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../authentication/models/user_model.dart';
-import '../../../shared/helpers/hex_color.dart';
+import '../../../shared/helpers/colors/hex_color.dart';
 import '../../../shared/secure_storage.dart';
 import '../../../shared/theme/colors/demiks_colors.dart';
 

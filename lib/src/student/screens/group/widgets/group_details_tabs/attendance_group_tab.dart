@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:student/src/shared/services/group_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../../../shared/helpers/hex_color.dart';
+import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/models/group_model.dart';
 import '../../../../../shared/models/group_student_model.dart';
 import '../../../../../shared/models/session_summary_model.dart';
@@ -22,6 +22,7 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
     with AutomaticKeepAliveClientMixin {
   Future<GroupStudentModel>? groupStudentModel;
   final GroupService groupService = GroupService();
+  final ScrollController controller = ScrollController();
 
   @override
   void initState() {
@@ -70,6 +71,7 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
   ListView _buildSessionSummary(
       BuildContext context, List<SessionSummaryModel>? groupLearningMaterials) {
     return ListView.builder(
+      controller: controller,
       itemCount: groupLearningMaterials!.length,
       padding: const EdgeInsets.only(top: 25, left: 35, right: 35, bottom: 25),
       itemBuilder: (context, index) {

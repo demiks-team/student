@@ -19,6 +19,7 @@ class GroupLearningMaterialModel {
   int groupId;
   int? displayOrder;
   LearningMaterialModel? learningMaterial;
+
   factory GroupLearningMaterialModel.fromJson(Map<String, dynamic> json) =>
       GroupLearningMaterialModel(
         learningMaterialId: json["learningMaterialId"],
@@ -32,7 +33,6 @@ class GroupLearningMaterialModel {
         "learningMaterialId": learningMaterialId,
         "groupId": groupId,
         "displayOrder": displayOrder,
-        "learningMaterial":
-            learningMaterial != null ? learningMaterial!.toJson() : null,
+        "learningMaterial": learningMaterial != null ? learningMaterial!.toJson() : null,
       };
 }
