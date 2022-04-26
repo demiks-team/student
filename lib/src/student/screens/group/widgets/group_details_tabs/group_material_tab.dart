@@ -88,7 +88,7 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
       future: groupLearningMaterial,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          final List<GroupLearningMaterialModel>? classLearningMaterials = 
+          final List<GroupLearningMaterialModel>? classLearningMaterials =
               snapshot.data;
           if (classLearningMaterials != null) {
             if (classLearningMaterials.isNotEmpty) {
@@ -96,10 +96,12 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                   context, classLearningMaterials);
             } else {
               return Center(
-                  child: Text("AppLocalizations.of(context)!.noClass"));
+                  child:
+                      Text(AppLocalizations.of(context)!.noLearningMaterial));
             }
           } else {
-            return Center(child: Text("AppLocalizations.of(context)!.noClass"));
+            return Center(
+                child: Text(AppLocalizations.of(context)!.noLearningMaterial));
           }
         } else {
           return Center(
@@ -163,12 +165,12 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child: Text("Estimated Study Time : " +
+                              child: Text(AppLocalizations.of(context)!
+                                      .estimatedStudyTime +
                                   groupLearningMaterials[index]
                                       .learningMaterial!
                                       .estimatedStudyTime
-                                      .toString() +
-                                  " (in minutes)"),
+                                      .toString()),
                             ),
                           ]),
                       if (groupLearningMaterials[index]

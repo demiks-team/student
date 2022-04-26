@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:student/src/shared/services/group_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/models/group_model.dart';
@@ -53,7 +54,8 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
           if (sessionSummary!.isNotEmpty) {
             return _buildSessionSummary(context, sessionSummary);
           } else {
-            return const Center(child: Text('Attendance list is empty'));
+            return Center(
+                child: Text(AppLocalizations.of(context)!.noSessionInTheClass));
           }
         } else {
           return Center(

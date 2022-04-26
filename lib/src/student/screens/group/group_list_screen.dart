@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student/src/shared/no_data.dart';
 import 'package:student/src/shared/services/group_service.dart';
 import 'package:student/src/student/screens/group/group_details_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,7 +15,7 @@ class GroupListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Classes'),
+        title: Text(AppLocalizations.of(context)!.classes),
         automaticallyImplyLeading: false,
       ),
       body: _buildBody(context),
@@ -32,10 +33,12 @@ class GroupListScreen extends StatelessWidget {
             if (classes.isNotEmpty) {
               return _buildClasses(context, classes);
             } else {
-              return const Center(child: Text('Class list is empty'));
+              return Text(AppLocalizations.of(context)!.noClass);
             }
           } else {
-            return Text(AppLocalizations.of(context)!.noClass);
+            return const Center(
+              child: no_data(),
+            );
           }
         } else {
           return Center(
