@@ -5,13 +5,13 @@ import 'room_model.dart';
 import 'school_model.dart';
 import 'teacher_model.dart';
 
-List<ClassModel> userFromJson(String str) =>
-    List<ClassModel>.from(json.decode(str).map((x) => ClassModel.fromJson(x)));
-String userToJson(List<ClassModel> data) =>
+List<GroupModel> groupFromJson(String str) =>
+    List<GroupModel>.from(json.decode(str).map((x) => GroupModel.fromJson(x)));
+String groupToJson(List<GroupModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ClassModel {
-  ClassModel({
+class GroupModel {
+  GroupModel({
     required this.id,
     this.title,
     this.schoolId,
@@ -22,6 +22,7 @@ class ClassModel {
     this.course,
     this.roomId,
     this.room,
+    this.numberOfSessions 
   });
   int id;
   String? title;
@@ -33,7 +34,8 @@ class ClassModel {
   CourseModel? course;
   int? roomId;
   RoomModel? room;
-  factory ClassModel.fromJson(Map<String, dynamic> json) => ClassModel(
+  int? numberOfSessions;
+  factory GroupModel.fromJson(Map<String, dynamic> json) => GroupModel(
         id: json["id"],
         title: json["title"],
         schoolId: json["schoolId"],
@@ -50,6 +52,7 @@ class ClassModel {
             : null,
         roomId: json["roomId"],
         room: json["room"] != null ? RoomModel.fromJson(json["room"]) : null,
+        numberOfSessions: json["numberOfSessions"],
       );
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -62,5 +65,6 @@ class ClassModel {
         "program": course != null ? course!.toJson() : null,
         "roomId": roomId,
         "room": room != null ? room!.toJson() : null,
+        "numberOfSessions": numberOfSessions,
       };
 }

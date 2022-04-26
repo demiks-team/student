@@ -24,8 +24,10 @@ class SignOutWidget extends StatelessWidget {
         ),
         TextButton(
           style: TextButton.styleFrom(primary: Colors.purple),
-          onPressed: () => Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const BottomNavigation())),
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).push(
+                MaterialPageRoute(builder: (_) => const BottomNavigation()));
+          },
           child: const Text('Cancel'),
         ),
       ],
