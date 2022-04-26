@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import '../../../shared/helpers/hex_color.dart';
-import '../../../shared/helpers/material_color.dart';
+import '../../../shared/helpers/colors/hex_color.dart';
+import '../../../shared/helpers/colors/material_color.dart';
 import '../../../shared/models/group_model.dart';
 import '../../../shared/services/group_service.dart';
 import '../../../shared/theme/colors/demiks_colors.dart';
 import 'widgets/group_details_tabs/attendance_group_tab.dart';
 import 'widgets/group_details_tabs/group_material_tab.dart';
 import 'widgets/group_details_tabs/group_details_tab.dart';
+import 'widgets/group_details_tabs/homework_tab.dart';
+import 'widgets/group_details_tabs/quiz_and_grades_tab.dart';
 
 class GroupDetailsScreen extends StatefulWidget {
   final int groupId;
@@ -58,8 +60,7 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
                   bottom: TabBar(
                     isScrollable: true,
                     labelPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    indicatorColor:
-                        HexColor.fromHex(DemiksColors.primaryColor),
+                    indicatorColor: HexColor.fromHex(DemiksColors.primaryColor),
                     labelColor: Colors.grey,
                     tabs: const <Widget>[
                       Tab(text: "Details"),
@@ -75,8 +76,8 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
                     GroupDetailsTab(groupModel: groupModel!),
                     AttendanceGroupTab(group: groupModel),
                     GroupMaterialTab(groupId: groupModel!.id),
-                    Icon(Icons.directions_bike),
-                    Icon(Icons.directions_bike),
+                    QuizAndGradesTab(group: groupModel),
+                    HomeworkTab(groupId: groupModel!.id),
                   ],
                 ),
               )));

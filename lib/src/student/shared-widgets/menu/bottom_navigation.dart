@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:student/src/shared/theme/colors/demiks_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../shared/helpers/hex_color.dart';
+import '../../../shared/helpers/colors/hex_color.dart';
 import '../../screens/group/group_list_screen.dart';
 import '../../screens/dashboard/dashboard_screen.dart';
 import '../../screens/invoice/invoice_screen.dart';
@@ -32,21 +32,21 @@ class _BottomNavigationState extends State<BottomNavigation> {
             backgroundColor: HexColor.fromHex('#fafafa'),
             activeColor: HexColor.fromHex(DemiksColors.accentColor),
             inactiveColor: HexColor.fromHex(DemiksColors.backgroundColorGray),
-            items: const <BottomNavigationBarItem>[
+            items:  <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.dashboard),
+                icon: const Icon(Icons.dashboard),
                 label: AppLocalizations.of(context)!.dashboard,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.group),
+                icon: const Icon(Icons.group),
                 label: AppLocalizations.of(context)!.classes,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.receipt),
+                icon: const Icon(Icons.receipt),
                 label: AppLocalizations.of(context)!.invoices,
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.logout),
+                icon: const Icon(Icons.logout),
                 label: AppLocalizations.of(context)!.signOut,
               ),
             ],
