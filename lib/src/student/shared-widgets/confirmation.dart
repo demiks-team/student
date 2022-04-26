@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
+import '../../shared/helpers/hex_color.dart';
 import '../../shared/secure_storage.dart';
+import '../../shared/theme/colors/demiks_colors.dart';
 import '../../site/screens/login_screen.dart';
 import 'menu/bottom_navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SignOutWidget extends StatelessWidget {
-  const SignOutWidget({Key? key}) : super(key: key);
+class ConfirmationWidget extends StatelessWidget {
+  const ConfirmationWidget({Key? key, required this.title}) : super(key: key);
 
+  final String title;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('AlertDialog Title'),
-      content: const Text('AlertDialog description'),
+      title: Text(
+        title,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      content: Text(AppLocalizations.of(context)!.sure),
       actions: <Widget>[
         TextButton(
-          style: TextButton.styleFrom(primary: Colors.green),
+          style: TextButton.styleFrom(
+              // primary: Colors.green,
+              backgroundColor: HexColor.fromHex(DemiksColors.accentColor)),
           onPressed: () {
             SecureStorage.removeCurrentUser();
             Navigator.of(context, rootNavigator: true)
@@ -23,7 +31,9 @@ class SignOutWidget extends StatelessWidget {
           child: const Text('Yes'),
         ),
         TextButton(
-          style: TextButton.styleFrom(primary: Colors.purple),
+          style: TextButton.styleFrom(
+              //primary: Colors.purple
+              backgroundColor: HexColor.fromHex(DemiksColors.primaryColor)),
           onPressed: () {
             Navigator.of(context, rootNavigator: true).push(
                 MaterialPageRoute(builder: (_) => const BottomNavigation()));

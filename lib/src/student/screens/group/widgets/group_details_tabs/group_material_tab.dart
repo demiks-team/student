@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student/src/shared/services/group_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../shared/helpers/hex_color.dart';
 import '../../../../../shared/models/group_file_model.dart';
@@ -106,7 +107,8 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
             return _buildClassLearningMaterials(
                 context, classLearningMaterials);
           } else {
-            return const Center(child: Text('Class material is empty'));
+            return Center(
+                child: Text(AppLocalizations.of(context)!.noLearningMaterial));
           }
         } else {
           return Center(
@@ -163,12 +165,12 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child: Text("Estimated Study Time : " +
+                              child: Text(AppLocalizations.of(context)!
+                                      .estimatedStudyTime +
                                   groupLearningMaterials[index]
                                       .learningMaterial!
                                       .estimatedStudyTime
-                                      .toString() +
-                                  " (in minutes)"),
+                                      .toString()),
                             ),
                           ]),
                     ],

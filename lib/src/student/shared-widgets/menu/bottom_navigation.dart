@@ -4,10 +4,11 @@ import 'package:student/src/shared/theme/colors/demiks_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../shared/helpers/hex_color.dart';
+import '../../../shared/helpers/navigation_service/navigation_service.dart';
 import '../../screens/group/group_list_screen.dart';
 import '../../screens/dashboard/dashboard_screen.dart';
 import '../../screens/invoice/invoice_screen.dart';
-import '../sign_out.dart';
+import '../confirmation.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({Key? key}) : super(key: key);
@@ -17,11 +18,14 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  final List<Widget> _tabs = const <Widget>[
+  final List<Widget> _tabs = <Widget>[
     DashboardScreen(),
     GroupListScreen(),
     InvoiceScreen(),
-    SignOutWidget(),
+    ConfirmationWidget(
+        title:
+            AppLocalizations.of(NavigationService.navigatorKey.currentContext!)!
+                .signOut),
   ];
 
   @override
@@ -32,7 +36,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
             backgroundColor: HexColor.fromHex('#fafafa'),
             activeColor: HexColor.fromHex(DemiksColors.accentColor),
             inactiveColor: HexColor.fromHex(DemiksColors.backgroundColorGray),
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.dashboard),
                 label: AppLocalizations.of(context)!.dashboard,

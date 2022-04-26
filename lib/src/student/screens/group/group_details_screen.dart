@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../shared/helpers/hex_color.dart';
 import '../../../shared/helpers/material_color.dart';
 import '../../../shared/models/group_model.dart';
@@ -58,15 +59,14 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
                   bottom: TabBar(
                     isScrollable: true,
                     labelPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    indicatorColor:
-                        HexColor.fromHex(DemiksColors.primaryColor),
+                    indicatorColor: HexColor.fromHex(DemiksColors.primaryColor),
                     labelColor: Colors.grey,
-                    tabs: const <Widget>[
-                      Tab(text: "Details"),
-                      Tab(text: "Attendance"),
-                      Tab(text: "Class Material"),
-                      Tab(text: "Quiz & Grades"),
-                      Tab(text: "Homework"),
+                    tabs: <Widget>[
+                      Tab(text: AppLocalizations.of(context)!.details),
+                      Tab(text: AppLocalizations.of(context)!.attendance),
+                      Tab(text: AppLocalizations.of(context)!.learningMaterial),
+                      Tab(text: AppLocalizations.of(context)!.quizGrades),
+                      Tab(text: AppLocalizations.of(context)!.homework),
                     ],
                   ),
                 ),
