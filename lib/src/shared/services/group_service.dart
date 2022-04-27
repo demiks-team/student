@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:student/src/shared/models/group_student_model.dart';
 
 import '../../authentication/helpers/dio/dio_api.dart';

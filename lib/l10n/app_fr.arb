@@ -1,4 +1,9 @@
 {
+    "grade": "Noter",
+    "minutes": "minutes",
+    "offline": "Hors ligne",
+    "deadline": "Date limite",
+    "noHomeworksInTheClass": "Aucun devoir n'a été assigné à cette classe pour le moment.",
     "sure": "Etes-vous sûr ?",
     "noData": "Aucune donnée disponible",
     "attendance": "Présence",

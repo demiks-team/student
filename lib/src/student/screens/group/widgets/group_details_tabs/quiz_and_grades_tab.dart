@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student/src/shared/services/group_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/helpers/date_time/start_end_datetime.dart';
@@ -52,7 +53,8 @@ class _QuizAndGradesTabState extends State<QuizAndGradesTab>
           if (quizGradeList!.isNotEmpty) {
             return _buildQuizzes(context, quizGradeList);
           } else {
-            return const Center(child: Text('Quiz list is empty'));
+            return Center(
+                child: Text(AppLocalizations.of(context)!.noQuizzesInTheClass));
           }
         } else {
           return Center(
@@ -116,10 +118,11 @@ class _QuizAndGradesTabState extends State<QuizAndGradesTab>
                       else
                         Row(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: const <Widget>[
+                            children: <Widget>[
                               Padding(
                                 padding: EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text("Offline"),
+                                child:
+                                    Text(AppLocalizations.of(context)!.offline),
                               ),
                             ]),
                       if (quizGrades[index].quiz!.durationInMinutes! > 0)
@@ -133,7 +136,8 @@ class _QuizAndGradesTabState extends State<QuizAndGradesTab>
                                         .quiz!
                                         .durationInMinutes!
                                         .toString() +
-                                    " minutes"),
+                                    " " +
+                                    AppLocalizations.of(context)!.minutes),
                               ),
                             ]),
                       if (quizGrades[index].grade != null)
