@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../../shared/helpers/colors/hex_color.dart';
 import '../../../shared/helpers/colors/material_color.dart';
@@ -45,6 +46,17 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
     if (groupModel != null) {
       return MaterialApp(
           debugShowCheckedModeBanner: false,
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [
+            Locale('en', ''),
+            Locale('es', ''),
+            Locale('fr', ''),
+          ],
           theme: ThemeData(
               primarySwatch: buildMaterialColor(const Color(0xffffffff))),
           home: DefaultTabController(

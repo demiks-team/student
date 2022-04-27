@@ -1,4 +1,9 @@
 {
+    "grade": "Calificación",
+    "minutes": "minutos",
+    "offline": "Desconectado",
+    "deadline": "Plazo",
+    "noHomeworksInTheClass": "No se han asignado tareas a esta clase en este momento.",
     "sure": "¿Estas seguro?",
     "noData": "Datos no disponibles",
     "attendance": "Asistencia",

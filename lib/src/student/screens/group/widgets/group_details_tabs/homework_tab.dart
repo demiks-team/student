@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:student/src/shared/services/group_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/helpers/date_time/start_end_datetime.dart';
@@ -51,7 +52,9 @@ class _HomeworkTabState extends State<HomeworkTab>
           if (homeworkList!.isNotEmpty) {
             return _buildHomeworks(context, homeworkList);
           } else {
-            return const Center(child: Text('Homework list is empty'));
+            return Center(
+                child:
+                    Text(AppLocalizations.of(context)!.noHomeworksInTheClass));
           }
         } else {
           return Center(
@@ -100,9 +103,11 @@ class _HomeworkTabState extends State<HomeworkTab>
                               Padding(
                                 padding:
                                     const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text("Deadline : " +
-                                    convertDateToLocal(
-                                        homeworks[index].deadline!)),
+                                child: Text(
+                                    AppLocalizations.of(context)!.deadline +
+                                        ": " +
+                                        convertDateToLocal(
+                                            homeworks[index].deadline!)),
                               ),
                             ]),
                       if (homeworks[index].description != null)
@@ -123,7 +128,10 @@ class _HomeworkTabState extends State<HomeworkTab>
                               Padding(
                                 padding:
                                     const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text(homeworks[index].grade!.toString()),
+                                child: Text(
+                                    AppLocalizations.of(context)!.grade +
+                                        ": " +
+                                        homeworks[index].grade!.toString()),
                               ),
                             ]),
                     ],

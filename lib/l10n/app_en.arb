@@ -1,4 +1,9 @@
 {
+    "grade": "Grade",
+    "minutes": "minutes",
+    "offline": "Offline",
+    "deadline": "Deadline",
+    "noHomeworksInTheClass": "No homeworks have been assigned to this class at the moment.",
     "sure": "Are you sure?",
     "noData": "No Data Available",
     "attendance": "Attendance",

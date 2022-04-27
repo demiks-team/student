@@ -167,6 +167,7 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
                               child: Text(AppLocalizations.of(context)!
                                       .estimatedStudyTime +
+                                  ": " +
                                   groupLearningMaterials[index]
                                       .learningMaterial!
                                       .estimatedStudyTime

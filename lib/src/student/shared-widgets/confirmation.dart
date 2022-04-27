@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../shared/helpers/hex_color.dart';
+import '../../shared/helpers/colors/hex_color.dart';
 import '../../shared/secure_storage.dart';
 import '../../shared/theme/colors/demiks_colors.dart';
 import '../../site/screens/login_screen.dart';
