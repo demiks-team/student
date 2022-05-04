@@ -31,6 +31,6 @@ class GroupStudentModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "fullName": fullName,
-        "sessions": sessions,
+        if (sessions != null) "sessions": sessions else "sessions": null
       };
 }

@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:student/src/shared/no_data.dart';
-import 'package:student/src/shared/services/group_service.dart';
-import 'package:student/src/student/screens/group/group_details_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../shared/helpers/colors/hex_color.dart';
-import '../../../shared/models/group_model.dart';
+import '../../../shared/models/invoice_model.dart';
+import '../../../shared/services/invoice_service.dart';
 import '../../../shared/theme/colors/demiks_colors.dart';
+import 'invoice_details_screen.dart';
 
-class GroupListScreen extends StatefulWidget {
-  const GroupListScreen({Key? key}) : super(key: key);
+class InvoiceListScreen extends StatefulWidget {
+  const InvoiceListScreen({Key? key}) : super(key: key);
 
   @override
-  State<GroupListScreen> createState() => _GroupListScreenState();
+  State<InvoiceListScreen> createState() => _InvoiceListScreenState();
 }
 
-class _GroupListScreenState extends State<GroupListScreen> {
+class _InvoiceListScreenState extends State<InvoiceListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.classes),
+          title: Text(AppLocalizations.of(context)!.invoices),
           automaticallyImplyLeading: false,
         ),
         body: RefreshIndicator(
@@ -34,18 +35,18 @@ class _GroupListScreenState extends State<GroupListScreen> {
         ));
   }
 
-  FutureBuilder<List<GroupModel>> _buildBody(BuildContext context) {
-    final GroupService groupService = GroupService();
-    return FutureBuilder<List<GroupModel>>(
-      future: groupService.getGroups(),
+  FutureBuilder<List<InvoiceModel>> _buildBody(BuildContext context) {
+    final InvoiceService invoiceService = InvoiceService();
+    return FutureBuilder<List<InvoiceModel>>(
+      future: invoiceService.getInvoices(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          final List<GroupModel>? classes = snapshot.data;
+          final List<InvoiceModel>? classes = snapshot.data;
           if (classes != null) {
             if (classes.isNotEmpty) {
-              return _buildClasses(context, classes);
+              return _buildInvoices(context, classes);
             } else {
-              return Text(AppLocalizations.of(context)!.noClass);
+              return Text(AppLocalizations.of(context)!.noInvoice);
             }
           } else {
             return const Center(
@@ -63,9 +64,9 @@ class _GroupListScreenState extends State<GroupListScreen> {
     );
   }
 
-  ListView _buildClasses(BuildContext context, List<GroupModel>? groups) {
+  ListView _buildInvoices(BuildContext context, List<InvoiceModel>? invoices) {
     return ListView.builder(
-      itemCount: groups!.length,
+      itemCount: invoices!.length,
       padding: const EdgeInsets.only(top: 25, left: 35, right: 35, bottom: 25),
       itemBuilder: (context, index) {
         return Card(
@@ -75,18 +76,19 @@ class _GroupListScreenState extends State<GroupListScreen> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) =>
-                            GroupDetailsScreen(groupId: groups[index].id)));
+                        builder: (_) => InvoiceDetailsScreen(
+                            invoiceId: invoices[index].id)));
               },
               title: Container(
                   margin: const EdgeInsets.only(top: 15),
                   child: Text(
-                    groups[index].title.toString(),
+                    invoices[index].invoiceCode.toString(),
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 20),
                   )),
               subtitle: Container(
                   margin: const EdgeInsets.only(left: 8, top: 5),
+                  padding: const EdgeInsets.only(bottom: 10),
                   child: Column(
                     children: [
                       Row(
@@ -95,7 +97,7 @@ class _GroupListScreenState extends State<GroupListScreen> {
                             Padding(
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
                               child:
-                                  Text(groups[index].school!.name.toString()),
+                                  Text(invoices[index].schoolName.toString()),
                             ),
                           ]),
                       Row(
@@ -103,36 +105,25 @@ class _GroupListScreenState extends State<GroupListScreen> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child: Text(
-                                  groups[index].teacher!.fullName.toString()),
+                              child: Text("\$" +
+                                  invoices[index].subtotal!.toStringAsFixed(2)),
                             ),
                           ]),
-                      if (groups[index].course != null)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child:
-                                    Text(groups[index].course!.name.toString()),
-                              ),
-                            ]),
-                      if (groups[index].room != null)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child:
-                                    Text(groups[index].room!.title.toString()),
-                              ),
-                            ]),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5, bottom: 5),
+                              child: Text(DateFormat("yMMMMd").format(
+                                  DateTime.parse(
+                                          invoices[index].createdOn.toString())
+                                      .toLocal())),
+                            ),
+                          ]),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: const <Widget>[
-                          Icon(Icons.link, size: 30),
+                          Icon(Icons.receipt, size: 30),
                         ],
                       ),
                     ],

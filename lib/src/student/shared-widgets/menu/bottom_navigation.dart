@@ -7,7 +7,7 @@ import '../../../shared/helpers/navigation_service/navigation_service.dart';
 import '../../../shared/helpers/colors/hex_color.dart';
 import '../../screens/group/group_list_screen.dart';
 import '../../screens/dashboard/dashboard_screen.dart';
-import '../../screens/invoice/invoice_screen.dart';
+import '../../screens/invoice/invoice_list_screen.dart';
 import '../confirmation.dart';
 
 class BottomNavigation extends StatefulWidget {
@@ -21,7 +21,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final List<Widget> _tabs = <Widget>[
     DashboardScreen(),
     GroupListScreen(),
-    InvoiceScreen(),
+    InvoiceListScreen(),
     ConfirmationWidget(
         title:
             AppLocalizations.of(NavigationService.navigatorKey.currentContext!)!
