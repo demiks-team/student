@@ -89,7 +89,7 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
                               child: Text(
                                 DateFormat("MMMMd").format(DateTime.parse(
                                     groupLearningMaterials[index]
-                                        .sessionDate!)),
+                                        .sessionDate!).toLocal()),
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               )),

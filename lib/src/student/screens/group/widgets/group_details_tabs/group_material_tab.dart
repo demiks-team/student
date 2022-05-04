@@ -183,35 +183,54 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               IconButton(
-                                icon: Icon(Icons.description,
+                                icon: Icon(Icons.library_books,
                                     color: HexColor.fromHex(
                                         DemiksColors.primaryColor)),
                                 onPressed: () {
                                   showModalBottomSheet<void>(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                        height: 200,
-                                        color: Colors.white,
-                                        child: Center(
-                                          child: SingleChildScrollView(
-                                              scrollDirection: Axis.vertical,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(30),
-                                                // child: Text(
-                                                //     groupLearningMaterials[
-                                                //             index]
-                                                //         .learningMaterial!
-                                                //         .body
-                                                //         .toString()),
-                                                child: Text(
-                                                    "adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjlda  adfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjlda adfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjldaadfafklalfjalfdalfjalfjadfklakflkafjlda"),
-                                              )),
-                                        ),
-                                      );
-                                    },
-                                  );
+                                      context: context,
+                                      isScrollControlled: true,
+                                      builder: (context) => Container(
+                                          padding: const EdgeInsets.all(2),
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.75,
+                                          child: Center(
+                                              child: Column(
+                                            children: [
+                                              Align(
+                                                alignment: Alignment.center,
+                                                child: IconButton(
+                                                  icon: Icon(Icons.close,
+                                                      color: HexColor.fromHex(
+                                                          DemiksColors
+                                                              .accentColor)),
+                                                  onPressed: () =>
+                                                      Navigator.of(context)
+                                                          .pop(),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                  child: ListView(
+                                                children: [
+                                                  ListTile(
+                                                    title:
+                                                        SingleChildScrollView(
+                                                      padding:
+                                                          const EdgeInsets.all(5),
+                                                      child: Text(
+                                                          groupLearningMaterials[
+                                                                  index]
+                                                              .learningMaterial!
+                                                              .body
+                                                              .toString()),
+                                                    ),
+                                                  )
+                                                ],
+                                              ))
+                                            ],
+                                          ))));
                                 },
                               ),
                             ]),
