@@ -6,8 +6,10 @@ import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/helpers/date_time/start_end_datetime.dart';
 import '../../../../../shared/models/group_model.dart';
 import '../../../../../shared/models/quiz_grade_model.dart';
+import '../../../../../shared/models/quiz_model.dart';
 import '../../../../../shared/theme/colors/demiks_colors.dart';
 import '../../../../../shared/services/group_service.dart';
+import '../quiz/quiz_overview.dart';
 
 class QuizAndGradesTab extends StatefulWidget {
   const QuizAndGradesTab({Key? key, this.group}) : super(key: key);
@@ -39,6 +41,21 @@ class _QuizAndGradesTabState extends State<QuizAndGradesTab>
 
   Future<List<QuizGradeModel>> getQuizGradeList() async {
     return groupService.getQuizzes(widget.group!.id);
+  }
+
+  int hasQuizStarted(QuizModel quiz) {
+    if (DateTime.now()
+        .isBefore(DateTime.parse(quiz.startDateTime!).toLocal())) {
+      return 0;
+    } else if (DateTime.now()
+        .isAfter(DateTime.parse(quiz.endDateTime!).toLocal())) {
+      return 2;
+    } else if (DateTime.now()
+            .isBefore(DateTime.parse(quiz.endDateTime!).toLocal()) &&
+        DateTime.now().isAfter(DateTime.parse(quiz.startDateTime!).toLocal())) {
+      return 1;
+    }
+    return 1;
   }
 
   @override
@@ -170,6 +187,47 @@ class _QuizAndGradesTabState extends State<QuizAndGradesTab>
                                           .quiz!
                                           .totalPoint
                                           .toString())),
+                            ]),
+                      if (quizGrades[index].quiz!.isOnline &&
+                          quizGrades[index].quiz!.displayCorrectAnswer &&
+                          (quizGrades[index].grade != null ||
+                              hasQuizStarted(quizGrades[index].quiz!) == 2))
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.fact_check,
+                                    color: HexColor.fromHex(
+                                        DemiksColors.primaryColor)),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => QuizOverview(
+                                              quizId:
+                                                  quizGrades[index].quiz!.id)));
+                                },
+                              ),
+                            ]),
+                      if (quizGrades[index].quiz!.isOnline &&
+                          quizGrades[index].grade == null &&
+                          hasQuizStarted(quizGrades[index].quiz!) == 1)
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.quiz,
+                                    color: HexColor.fromHex(
+                                        DemiksColors.primaryColor)),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => QuizOverview(
+                                              quizId:
+                                                  quizGrades[index].quiz!.id)));
+                                },
+                              ),
                             ]),
                     ],
                   )),

@@ -28,7 +28,7 @@ class ConfirmationWidget extends StatelessWidget {
             Navigator.of(context, rootNavigator: true)
                 .push(MaterialPageRoute(builder: (_) => const LoginScreen()));
           },
-          child: const Text('Yes'),
+          child: Text(AppLocalizations.of(context)!.yes),
         ),
         TextButton(
           style: TextButton.styleFrom(
@@ -38,7 +38,7 @@ class ConfirmationWidget extends StatelessWidget {
             Navigator.of(context, rootNavigator: true).push(
                 MaterialPageRoute(builder: (_) => const BottomNavigation()));
           },
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context)!.cancel),
         ),
       ],
     );

@@ -422,11 +422,13 @@ packages:
     version: "6.0.2"
   quiver:
     dependency: transitive
+  quiver:
+    dependency: "direct main"
     description:
       name: quiver
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.0"
+    version: "3.0.1+1"
   sky_engine:
     dependency: transitive
     description: flutter
