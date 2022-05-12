@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart';
 
 import '../../../shared/helpers/colors/hex_color.dart';
 import '../../../shared/helpers/colors/material_color.dart';
@@ -35,8 +36,10 @@ class _InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
       displayOrder: 1,
       name: 'US Dollar',
       sign: '\$');
+  NumberFormat? currencyFormat;
   List<PaymentModel>? payments;
   List<RefundModel>? refunds;
+  bool completedTasks = false;
   final InvoiceService invoiceService = InvoiceService();
   final PaymentService paymentService = PaymentService();
   final GeneralService generalService = GeneralService();
@@ -45,18 +48,16 @@ class _InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
   initState() {
     Future.delayed(Duration.zero, () async {
       await initializeTheData();
-      // for (var item in payments!) {
-      //   print(item.paymentMethodId.toString().split('.').last);
-      // }
+      completedTasks = true;
     });
 
     super.initState();
   }
 
   initializeTheData() async {
-    await getCurrency(currency!.id);
-    await getPayments();
     await getInvoice();
+    await getPayments();
+    await getCurrency(currency!.id);
   }
 
   getInvoice() async {
@@ -81,6 +82,8 @@ class _InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
     await currencyModel.then((cm) {
       setState(() {
         currency = cm;
+        currencyFormat =
+            NumberFormat.currency(name: cm.currencyCode, symbol: cm.sign);
       });
     });
   }
@@ -107,7 +110,7 @@ class _InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (invoice != null) {
+    if (completedTasks) {
       return MaterialApp(
           debugShowCheckedModeBanner: false,
           localizationsDelegates: [
@@ -155,17 +158,21 @@ class _InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                       invoice: invoice!,
                       payments: payments,
                       refunds: refunds,
+                      currencyFormat: currencyFormat,
                     ),
                     PaymentsTab(
                       payments: payments,
+                      currencyFormat: currencyFormat,
                     ),
-                    ScheduledPaymentsTab(invoiceId: invoice!.id),
+                    ScheduledPaymentsTab(
+                        invoiceId: invoice!.id, currencyFormat: currencyFormat),
                   ],
                 ),
               )));
     } else {
       return Center(
         child: CircularProgressIndicator(
+          strokeWidth: 2.0,
           color: HexColor.fromHex(DemiksColors.accentColor),
         ),
       );

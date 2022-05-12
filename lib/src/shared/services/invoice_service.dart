@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../authentication/helpers/dio/dio_api.dart';
 import '../models/invoice_model.dart';
@@ -40,5 +41,17 @@ class InvoiceService {
     }
   }
 
+  Future<void> exportPdf(int invoiceId) async {
+    var dir = await getApplicationDocumentsDirectory();
 
+    var response = await DioApi().dio.download(
+        dotenv.env['api'].toString() +
+            "invoicing/invoice/export/" +
+            invoiceId.toString(),
+        dir);
+
+    if (response.statusCode != 200) {
+      throw Exception('Unable to retrieve file.');
+    }
+  }
 }

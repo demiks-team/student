@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:student/src/shared/helpers/colors/hex_color.dart';
 import 'package:student/src/shared/theme/colors/demiks_colors.dart';
-import '../../student/shared-widgets/menu/bottom_navigation.dart';
+
 import '../../authentication/services/authentication_service.dart';
+import '../../student/shared-widgets/menu/bottom_navigation.dart';
 
-import 'signup_screen.dart';
-
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final authenticationService = AuthenticationService();
@@ -43,14 +42,14 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  void _submitSignin() async {
+  void _submitSignUp() async {
     final bool? isValid = _formKey.currentState?.validate();
     if (isValid == true) {
       setState(() {
         submitted = true;
       });
       var response = await authenticationService
-          .login(_userEmail, _password)
+          .signUp(_userEmail, _password)
           .whenComplete(() => setState(() {
                 submitted = false;
               }));
@@ -100,16 +99,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
-                                          Container(
+                                          Expanded(
+                                              child: Container(
                                             margin: const EdgeInsets.only(
                                                 bottom: 25),
                                             child: Text(
                                               AppLocalizations.of(context)!
-                                                  .login,
+                                                  .createAnAccount,
                                               style:
                                                   const TextStyle(fontSize: 20),
                                             ),
-                                          )
+                                          )),
                                         ],
                                       ),
                                       TextFormField(
@@ -156,6 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                       TextFormField(
                                         decoration: InputDecoration(
+                                          errorMaxLines: 6,
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: HexColor.fromHex(
@@ -177,20 +178,37 @@ class _LoginScreenState extends State<LoginScreen> {
                                           hintText:
                                               AppLocalizations.of(context)!
                                                   .password,
-                                          suffixIcon: IconButton(
-                                            icon: Icon(
-                                              _passwordVisible
-                                                  ? Icons.visibility
-                                                  : Icons.visibility_off,
-                                              color: Theme.of(context)
-                                                  .primaryColorDark,
-                                            ),
-                                            onPressed: () {
-                                              setState(() {
-                                                _passwordVisible =
-                                                    !_passwordVisible;
-                                              });
-                                            },
+                                          suffixIcon: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              IconButton(
+                                                icon: Icon(
+                                                  Icons.info_outline,
+                                                  color: Theme.of(context)
+                                                      .primaryColorDark,
+                                                ),
+                                                onPressed: () {
+                                                  showAlertDialog(context);
+                                                },
+                                              ),
+                                              IconButton(
+                                                icon: Icon(
+                                                  _passwordVisible
+                                                      ? Icons.visibility
+                                                      : Icons.visibility_off,
+                                                  color: Theme.of(context)
+                                                      .primaryColorDark,
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _passwordVisible =
+                                                        !_passwordVisible;
+                                                  });
+                                                },
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         autovalidateMode:
@@ -200,9 +218,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                         validator: (value) {
                                           if (value == null ||
                                               value.trim().isEmpty) {
+                                            // return AppLocalizations.of(context)!
+                                            //     .passwordHint;
                                             return '';
                                           }
-                                          if (value.trim().length < 2) {
+                                          if (!RegExp(
+                                                  r'^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$')
+                                              .hasMatch(value)) {
+                                            // return AppLocalizations.of(context)!
+                                            //     .passwordHint;
                                             return '';
                                           }
 
@@ -239,12 +263,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   ? _formKey.currentState!
                                                               .validate() &&
                                                           !submitted
-                                                      ? _submitSignin
+                                                      ? _submitSignUp
                                                       : null
                                                   : null,
                                           child: Text(
                                               AppLocalizations.of(context)!
-                                                  .login,
+                                                  .signUp,
                                               style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 20))),
@@ -259,14 +283,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Expanded(
-                                                child: Center(
-                                              child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .loginWithSocialNetworks,
-                                                style: const TextStyle(
-                                                    fontSize: 20),
+                                              child: Center(
+                                                child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .signUpWithSocialNetworks,
+                                                  style: const TextStyle(
+                                                      fontSize: 20),
+                                                ),
                                               ),
-                                            )),
+                                            )
                                           ],
                                         ),
                                         Row(
@@ -295,11 +320,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 ),
                                                 label: Text(AppLocalizations.of(
                                                         context)!
-                                                    .loginWithGoogle),
+                                                    .signUpWithGoogle),
                                                 onPressed: () async {
                                                   var response =
                                                       await authenticationService
-                                                          .signInGoogle();
+                                                          .signUpGoogle();
                                                   if (response != null &&
                                                       response) {
                                                     Navigator.push(
@@ -334,7 +359,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.noAccount + " ",
+                          AppLocalizations.of(context)!.haveAccount + " ",
                           style: const TextStyle(
                               color: Colors.black,
                               fontSize: 12,
@@ -344,14 +369,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             margin: const EdgeInsets.only(bottom: 3),
                             child: InkWell(
                               child: Text(
-                                AppLocalizations.of(context)!.signUp,
+                                AppLocalizations.of(context)!.login,
                                 style: const TextStyle(
                                     color: Colors.black, fontSize: 18),
                               ),
                               onTap: () {
-                                Navigator.of(context, rootNavigator: true).push(
-                                    MaterialPageRoute(
-                                        builder: (_) => const SignupScreen()));
+                                Navigator.of(context).pop();
                               },
                             ))
                       ],
@@ -361,4 +384,18 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ));
   }
+}
+
+showAlertDialog(BuildContext context) {
+  
+  AlertDialog alert = AlertDialog(
+    content: Text(AppLocalizations.of(context)!.passwordHint),
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }

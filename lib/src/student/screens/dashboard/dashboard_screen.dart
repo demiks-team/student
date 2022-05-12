@@ -41,7 +41,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: Container(
                       width: 300,
                       height: 100,
-                      child: Image.asset('assets/images/logo.png')),
+                      child:
+                          Image.asset('assets/images/logo-demiks-student.png')),
                 )),
             Padding(
               padding: const EdgeInsets.only(top: 60.0),
@@ -61,6 +62,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     } else {
       return Center(
         child: CircularProgressIndicator(
+          strokeWidth: 2.0,
           color: HexColor.fromHex(DemiksColors.accentColor),
         ),
       );

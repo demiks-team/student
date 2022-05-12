@@ -98,6 +98,7 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
     } else {
       return Center(
         child: CircularProgressIndicator(
+          strokeWidth: 2.0,
           color: HexColor.fromHex(DemiksColors.accentColor),
         ),
       );

@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:student/src/shared/helpers/colors/hex_color.dart';
@@ -10,18 +8,21 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../shared/models/payment_model.dart';
 import '../../../../../shared/models/refund_model.dart';
+import '../../../../../shared/services/invoice_service.dart';
 
 class InvoiceDetailsTab extends StatefulWidget {
   const InvoiceDetailsTab(
       {Key? key,
       required this.invoice,
       required this.payments,
-      required this.refunds})
+      required this.refunds,
+      required this.currencyFormat})
       : super(key: key);
 
   final InvoiceModel invoice;
   final List<PaymentModel>? payments;
   final List<RefundModel>? refunds;
+  final NumberFormat? currencyFormat;
 
   @override
   State<InvoiceDetailsTab> createState() => _InvoiceDetailsTabState();
@@ -29,10 +30,7 @@ class InvoiceDetailsTab extends StatefulWidget {
 
 class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
   final ScrollController controller = ScrollController();
-  final formatCurrency = NumberFormat.currency(
-    name: "Canadian Dollar",
-    symbol: "CAD",
-  );
+    final InvoiceService invoiceService = InvoiceService();
 
   double get amountDue {
     var invoiceTotal = widget.invoice.total;
@@ -46,31 +44,8 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
 
   @override
   Widget build(BuildContext context) {
-    Locale locale = Localizations.localeOf(context);
-    var format = NumberFormat.currency(name: 'USD',symbol : '\$');
-    // format.currencyName = "us";
-    print("CURRENCY SYMBOL ${format.currencySymbol}"); // $
-    print("CURRENCY NAME ${format.currencyName}");
-    print(format.format(52.345));
-    // final oCcy = NumberFormat.currency(
-    //     locale: 'eu',
-    //     customPattern: '# \u00a4',
-    //     symbol: '\$',
-    //     decimalDigits: 2,
-    //     name: 'CAD');
-    //     oCcy.currencyName = "USD";
-//  123.94 $
-    // print(oCcy.format(123.9455));
-
-// final oCcy = NumberFormat.currency(
-//       locale: 'eu',
-//       customPattern: '#,### \u00a4',
-//       symbol: 'FCFA',
-//       decimalDigits: 2);
-
-// print(oCcy.format(12345));
-
     var invoice = widget.invoice;
+    var currency = widget.currencyFormat;
     return ListView(
       controller: controller,
       children: <Widget>[
@@ -124,6 +99,17 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                                     DateTime.parse(invoice.createdOn.toString())
                                         .toLocal()),
                                 style: const TextStyle(fontSize: 18.0)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5, bottom: 5),
+                            child: IconButton(
+                              icon: Icon(Icons.picture_as_pdf,
+                                  color: HexColor.fromHex(
+                                      DemiksColors.accentColor)),
+                              onPressed: () {
+                                invoiceService.exportPdf(invoice.id);
+                              },
+                            ),
                           ),
                         ],
                       )
@@ -203,7 +189,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                                       child: Text(
                                         item.quantity.toString() +
                                             " x " +
-                                            item.unitPrice.toString(),
+                                            currency!.format(item.unitPrice),
                                         style: const TextStyle(fontSize: 14),
                                       ),
                                     ),
@@ -218,7 +204,8 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                                           AppLocalizations.of(context)!
                                                   .discount +
                                               " : " +
-                                              item.discountAmount.toString(),
+                                              currency
+                                                  .format(item.discountAmount),
                                           style: const TextStyle(fontSize: 14),
                                         ),
                                       ),
@@ -234,7 +221,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                                           top: 5,
                                           bottom: 5),
                                       child: Text(
-                                          "\$" + item.subtotalPrice!.toString(),
+                                          currency.format(item.subtotalPrice!),
                                           style: const TextStyle(
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.bold,
@@ -271,7 +258,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                     padding: const EdgeInsets.only(top: 5, bottom: 5),
                     child: Text(AppLocalizations.of(context)!.subtotal +
                         " : " +
-                        invoice.subtotal!.toStringAsFixed(2)),
+                        currency!.format(invoice.subtotal!)),
                   ),
                 ]),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -279,7 +266,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                     padding: const EdgeInsets.only(top: 5, bottom: 5),
                     child: Text(AppLocalizations.of(context)!.discount +
                         " : " +
-                        invoice.discountAmount!.toStringAsFixed(2)),
+                        currency.format(invoice.discountAmount)),
                   ),
                 ]),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -287,7 +274,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                     padding: const EdgeInsets.only(top: 5, bottom: 5),
                     child: Text(AppLocalizations.of(context)!.taxes +
                         " : " +
-                        invoice.tax!.toStringAsFixed(2)),
+                        currency.format(invoice.tax!)),
                   ),
                 ]),
                 Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -295,7 +282,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                     padding: const EdgeInsets.only(top: 5, bottom: 5),
                     child: Text(AppLocalizations.of(context)!.registrationFee +
                         " : " +
-                        invoice.registrationFee!.toStringAsFixed(2)),
+                        currency.format(invoice.registrationFee!)),
                   ),
                 ]),
               ],
@@ -320,7 +307,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                     child: Text(
                       AppLocalizations.of(context)!.total +
                           " : " +
-                          invoice.total!.toStringAsFixed(2),
+                          currency.format(invoice.total!),
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -339,7 +326,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10, bottom: 10),
                       child: Text(
-                        payment.total!.toStringAsFixed(2),
+                        currency.format(payment.total!),
                       ),
                     ),
                   ]),
@@ -367,7 +354,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                       child: Text(
                         AppLocalizations.of(context)!.amountDue +
                             " : " +
-                            amountDue.toStringAsFixed(2),
+                            currency.format(amountDue),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
@@ -392,7 +379,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                       Padding(
                         padding: const EdgeInsets.only(top: 10, bottom: 10),
                         child: Text(
-                          refund.amount!.toStringAsFixed(2),
+                          currency.format(refund.amount),
                         ),
                       ),
                     ]),
