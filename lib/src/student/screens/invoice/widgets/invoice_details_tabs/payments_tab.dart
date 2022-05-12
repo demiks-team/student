@@ -5,8 +5,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../shared/models/payment_model.dart';
 
 class PaymentsTab extends StatefulWidget {
-  const PaymentsTab({Key? key, required this.payments}) : super(key: key);
+  const PaymentsTab(
+      {Key? key, required this.payments, required this.currencyFormat})
+      : super(key: key);
   final List<PaymentModel>? payments;
+  final NumberFormat? currencyFormat;
 
   @override
   State<PaymentsTab> createState() => _PaymentsTabState();
@@ -21,6 +24,7 @@ class _PaymentsTabState extends State<PaymentsTab>
   @override
   Widget build(BuildContext context) {
     var payments = widget.payments;
+    var currency = widget.currencyFormat;
     super.build(context);
     return Scaffold(
         body: payments != null && payments.isNotEmpty
@@ -33,14 +37,16 @@ class _PaymentsTabState extends State<PaymentsTab>
                     elevation: 4,
                     child: ListTile(
                         title: Container(
-                            margin: const EdgeInsets.only(top: 15),
+                            margin: const EdgeInsets.only(
+                                left: 15, top: 25, bottom: 15, right: 15),
                             child: Text(
-                              "\$" + payments[index].total.toString(),
+                              currency!.format(payments[index].total),
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             )),
                         subtitle: Container(
-                            margin: const EdgeInsets.only(left: 8, top: 5),
+                            margin: const EdgeInsets.only(
+                                left: 15, right: 15, bottom: 15),
                             child: Column(children: [
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.start,

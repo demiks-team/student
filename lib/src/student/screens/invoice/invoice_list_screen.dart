@@ -46,16 +46,39 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
             if (classes.isNotEmpty) {
               return _buildInvoices(context, classes);
             } else {
-              return Text(AppLocalizations.of(context)!.noInvoice);
+              return RefreshIndicator(
+                child: Stack(
+                  children: <Widget>[
+                    Center(
+                      child: Text(AppLocalizations.of(context)!.noInvoice),
+                    ),
+                    ListView()
+                  ],
+                ),
+                onRefresh: () async {
+                  setState(() {});
+                },
+              );
             }
           } else {
-            return const Center(
-              child: no_data(),
+            return RefreshIndicator(
+              child: Stack(
+                children: <Widget>[
+                  const Center(
+                    child: NoData(),
+                  ),
+                  ListView()
+                ],
+              ),
+              onRefresh: () async {
+                setState(() {});
+              },
             );
           }
         } else {
           return Center(
             child: CircularProgressIndicator(
+              strokeWidth: 2.0,
               color: HexColor.fromHex(DemiksColors.accentColor),
             ),
           );
@@ -80,15 +103,16 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
                             invoiceId: invoices[index].id)));
               },
               title: Container(
-                  margin: const EdgeInsets.only(top: 15),
+                  margin: const EdgeInsets.only(
+                      left: 15, top: 25, bottom: 15, right: 15),
                   child: Text(
                     invoices[index].invoiceCode.toString(),
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 20),
                   )),
               subtitle: Container(
-                  margin: const EdgeInsets.only(left: 8, top: 5),
-                  padding: const EdgeInsets.only(bottom: 10),
+                  margin:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Column(
                     children: [
                       Row(

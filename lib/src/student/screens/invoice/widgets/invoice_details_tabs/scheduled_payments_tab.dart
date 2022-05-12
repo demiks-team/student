@@ -8,8 +8,10 @@ import '../../../../../shared/services/payment_service.dart';
 import '../../../../../shared/theme/colors/demiks_colors.dart';
 
 class ScheduledPaymentsTab extends StatefulWidget {
-  const ScheduledPaymentsTab({Key? key, this.invoiceId}) : super(key: key);
+  const ScheduledPaymentsTab({Key? key, this.invoiceId, this.currencyFormat})
+      : super(key: key);
   final int? invoiceId;
+  final NumberFormat? currencyFormat;
 
   @override
   State<ScheduledPaymentsTab> createState() => _ScheduledPaymentsTabState();
@@ -59,6 +61,7 @@ class _ScheduledPaymentsTabState extends State<ScheduledPaymentsTab>
         } else {
           return Center(
             child: CircularProgressIndicator(
+              strokeWidth: 2.0,
               color: HexColor.fromHex(DemiksColors.accentColor),
             ),
           );
@@ -69,6 +72,7 @@ class _ScheduledPaymentsTabState extends State<ScheduledPaymentsTab>
 
   ListView _buildScheduledPayments(
       BuildContext context, List<ScheduledPaymentModel>? schedulePayments) {
+    var currency = widget.currencyFormat;
     return ListView.builder(
       controller: controller,
       itemCount: schedulePayments!.length,
@@ -78,7 +82,8 @@ class _ScheduledPaymentsTabState extends State<ScheduledPaymentsTab>
             elevation: 4,
             child: ListTile(
               title: Container(
-                  margin: const EdgeInsets.only(left: 8, top: 5),
+                  margin: const EdgeInsets.only(
+                      left: 15, top: 25, bottom: 15, right: 15),
                   child: Column(children: [
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,7 +102,8 @@ class _ScheduledPaymentsTabState extends State<ScheduledPaymentsTab>
                         ]),
                   ])),
               subtitle: Container(
-                  margin: const EdgeInsets.only(left: 20, top: 5),
+                  margin:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Column(
                     children: [
                       if (schedulePayments[index].paymentAmount != null)
@@ -107,10 +113,8 @@ class _ScheduledPaymentsTabState extends State<ScheduledPaymentsTab>
                               Padding(
                                 padding:
                                     const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text("\$" +
-                                    schedulePayments[index]
-                                        .paymentAmount!
-                                        .toStringAsFixed(2)),
+                                child: Text(currency!.format(
+                                    schedulePayments[index].paymentAmount!)),
                               ),
                             ]),
                       if (schedulePayments[index].discountRate != null &&
@@ -123,12 +127,11 @@ class _ScheduledPaymentsTabState extends State<ScheduledPaymentsTab>
                                     const EdgeInsets.only(top: 5, bottom: 5),
                                 child: Text(AppLocalizations.of(context)!
                                         .discountAmount +
-                                    " : \$" +
-                                    (schedulePayments[index].paymentAmount! *
-                                            (schedulePayments[index]
-                                                    .discountRate! /
-                                                100))
-                                        .toStringAsFixed(2)),
+                                    " : " +
+                                    (currency!.format(schedulePayments[index]
+                                            .paymentAmount! *
+                                        (schedulePayments[index].discountRate! /
+                                            100)))),
                               ),
                             ])
                     ],

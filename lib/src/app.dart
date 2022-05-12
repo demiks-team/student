@@ -59,6 +59,7 @@ class _AppState extends State<App> {
       home: isUserLoggedIn == null
           ? Center(
               child: CircularProgressIndicator(
+                  strokeWidth: 2.0,
                   color: HexColor.fromHex(DemiksColors.accentColor)))
           : isUserLoggedIn!
               ? const BottomNavigation()

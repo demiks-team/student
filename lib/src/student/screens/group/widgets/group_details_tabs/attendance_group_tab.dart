@@ -60,6 +60,7 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
         } else {
           return Center(
             child: CircularProgressIndicator(
+              strokeWidth: 2.0,
               color: HexColor.fromHex(DemiksColors.accentColor),
             ),
           );
@@ -79,7 +80,8 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
             elevation: 4,
             child: ListTile(
               title: Container(
-                  margin: const EdgeInsets.only(left: 8, top: 5),
+                  margin: const EdgeInsets.only(
+                      left: 15, top: 25, bottom: 15, right: 15),
                   child: Column(children: [
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,8 +90,9 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
                               margin: const EdgeInsets.only(top: 1),
                               child: Text(
                                 DateFormat("MMMMd").format(DateTime.parse(
-                                    groupLearningMaterials[index]
-                                        .sessionDate!).toLocal()),
+                                        groupLearningMaterials[index]
+                                            .sessionDate!)
+                                    .toLocal()),
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               )),
@@ -133,7 +136,8 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
                     ])
                   ])),
               subtitle: Container(
-                  margin: const EdgeInsets.only(left: 20, top: 5),
+                  margin:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Column(
                     children: [
                       if (groupLearningMaterials[index].notesForStudent != null)

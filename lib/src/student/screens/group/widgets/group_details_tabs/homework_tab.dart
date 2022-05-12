@@ -59,6 +59,7 @@ class _HomeworkTabState extends State<HomeworkTab>
         } else {
           return Center(
             child: CircularProgressIndicator(
+              strokeWidth: 2.0,
               color: HexColor.fromHex(DemiksColors.accentColor),
             ),
           );
@@ -78,7 +79,8 @@ class _HomeworkTabState extends State<HomeworkTab>
             elevation: 4,
             child: ListTile(
               title: Container(
-                  margin: const EdgeInsets.only(left: 8, top: 5),
+                  margin: const EdgeInsets.only(
+                      left: 15, top: 25, bottom: 15, right: 15),
                   child: Column(children: [
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,7 +95,8 @@ class _HomeworkTabState extends State<HomeworkTab>
                         ]),
                   ])),
               subtitle: Container(
-                  margin: const EdgeInsets.only(left: 20, top: 5),
+                  margin:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Column(
                     children: [
                       if (homeworks[index].deadline != null)

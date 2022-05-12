@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:student/src/shared/services/group_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -106,6 +107,7 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
         } else {
           return Center(
             child: CircularProgressIndicator(
+              strokeWidth: 2.0,
               color: HexColor.fromHex(DemiksColors.accentColor),
             ),
           );
@@ -125,7 +127,8 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
             elevation: 4,
             child: ListTile(
               title: Container(
-                margin: const EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(
+                    left: 15, top: 25, bottom: 15, right: 15),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -140,7 +143,8 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                     ]),
               ),
               subtitle: Container(
-                  margin: const EdgeInsets.only(left: 8, top: 5),
+                  margin:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Column(
                     children: [
                       if (groupLearningMaterials[index]
@@ -182,57 +186,65 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                         Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              IconButton(
-                                icon: Icon(Icons.library_books,
-                                    color: HexColor.fromHex(
-                                        DemiksColors.primaryColor)),
-                                onPressed: () {
-                                  showModalBottomSheet<void>(
-                                      context: context,
-                                      isScrollControlled: true,
-                                      builder: (context) => Container(
-                                          padding: const EdgeInsets.all(2),
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.75,
-                                          child: Center(
-                                              child: Column(
-                                            children: [
-                                              Align(
-                                                alignment: Alignment.center,
-                                                child: IconButton(
-                                                  icon: Icon(Icons.close,
-                                                      color: HexColor.fromHex(
-                                                          DemiksColors
-                                                              .accentColor)),
-                                                  onPressed: () =>
-                                                      Navigator.of(context)
-                                                          .pop(),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                  child: ListView(
+                              Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, bottom: 5),
+                                  child: IconButton(
+                                    padding: EdgeInsets.zero,
+                                    constraints: const BoxConstraints(),
+                                    icon: Icon(Icons.library_books,
+                                        color: HexColor.fromHex(
+                                            DemiksColors.primaryColor)),
+                                    onPressed: () {
+                                      showModalBottomSheet<void>(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          builder: (context) => Container(
+                                              padding: const EdgeInsets.all(2),
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.75,
+                                              child: Center(
+                                                  child: Column(
                                                 children: [
-                                                  ListTile(
-                                                    title:
-                                                        SingleChildScrollView(
-                                                      padding:
-                                                          const EdgeInsets.all(5),
-                                                      child: Text(
-                                                          groupLearningMaterials[
-                                                                  index]
-                                                              .learningMaterial!
-                                                              .body
-                                                              .toString()),
-                                                    ),
-                                                  )
+                                                  Align(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: IconButton(
+                                                        icon: Icon(
+                                                            Icons.minimize,
+                                                            color: HexColor.fromHex(
+                                                                DemiksColors
+                                                                    .accentColor)),
+                                                        onPressed: () =>
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop(),
+                                                      )),
+                                                  Expanded(
+                                                      child: ListView(
+                                                    children: [
+                                                      ListTile(
+                                                        title:
+                                                            SingleChildScrollView(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(5),
+                                                                child: Html(
+                                                                  data: groupLearningMaterials[
+                                                                          index]
+                                                                      .learningMaterial!
+                                                                      .body
+                                                                      .toString(),
+                                                                )),
+                                                      )
+                                                    ],
+                                                  ))
                                                 ],
-                                              ))
-                                            ],
-                                          ))));
-                                },
-                              ),
+                                              ))));
+                                    },
+                                  )),
                             ]),
                       if (groupLearningMaterials[index]
                               .learningMaterial!
@@ -243,6 +255,8 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               IconButton(
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
                                   icon: Icon(Icons.download,
                                       color: HexColor.fromHex(
                                           DemiksColors.primaryColor)),
