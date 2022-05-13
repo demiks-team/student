@@ -11,14 +11,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:student/src/student/screens/group/group_details_screen.dart';
 import 'package:student/src/student/screens/group/group_list_screen.dart';
 import 'package:student/src/student/screens/group/widgets/quiz/quiz_overview.dart';
-import 'package:student/src/student/shared-widgets/confirmation.dart';
+import 'package:student/src/student/shared-widgets/sign_out_dialog_widget.dart';
 
 import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/models/quiz_arrival_time_model.dart';
 import '../../../../../shared/models/quiz_grade_model.dart';
 import '../../../../../shared/models/quiz_model.dart';
 import '../../../../../shared/services/quiz_service.dart';
-import '../../../../../shared/theme/colors/demiks_colors.dart';
+import '../../../../../shared/theme/colors/app_colors.dart';
 
 class TakeQuiz extends StatefulWidget {
   final QuizModel quiz;
@@ -294,7 +294,7 @@ class _QuizState extends State<TakeQuiz> with AutomaticKeepAliveClientMixin {
       actions: <Widget>[
         TextButton(
           style: TextButton.styleFrom(
-              backgroundColor: HexColor.fromHex(DemiksColors.accentColor)),
+              backgroundColor: HexColor.fromHex(AppColors.accentColor)),
           onPressed: () {
             saveAnswer();
             var studentGrade = QuizGradeModel();
@@ -313,7 +313,7 @@ class _QuizState extends State<TakeQuiz> with AutomaticKeepAliveClientMixin {
         ),
         TextButton(
           style: TextButton.styleFrom(
-              backgroundColor: HexColor.fromHex(DemiksColors.primaryColor)),
+              backgroundColor: HexColor.fromHex(AppColors.primaryColor)),
           onPressed: () {
             if (current == 0)
               Navigator.of(dialogContext, rootNavigator: true)
@@ -400,7 +400,7 @@ class _QuizState extends State<TakeQuiz> with AutomaticKeepAliveClientMixin {
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back,
-                color: HexColor.fromHex(DemiksColors.accentColor)),
+                color: HexColor.fromHex(AppColors.accentColor)),
             onPressed: () => {
               saveAnswer(),
               Navigator.push(
@@ -544,7 +544,7 @@ class _QuizState extends State<TakeQuiz> with AutomaticKeepAliveClientMixin {
     } else {
       return Center(
         child: CircularProgressIndicator(
-          color: HexColor.fromHex(DemiksColors.accentColor),
+          color: HexColor.fromHex(AppColors.accentColor),
         ),
       );
     }

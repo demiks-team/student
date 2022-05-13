@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/helpers/date_time/start_end_datetime.dart';
 import '../../../../../shared/models/homework_model.dart';
-import '../../../../../shared/theme/colors/demiks_colors.dart';
+import '../../../../../shared/theme/colors/app_colors.dart';
 import '../../../../../shared/services/group_service.dart';
 
 class HomeworkTab extends StatefulWidget {
@@ -60,7 +60,7 @@ class _HomeworkTabState extends State<HomeworkTab>
           return Center(
             child: CircularProgressIndicator(
               strokeWidth: 2.0,
-              color: HexColor.fromHex(DemiksColors.accentColor),
+              color: HexColor.fromHex(AppColors.accentColor),
             ),
           );
         }

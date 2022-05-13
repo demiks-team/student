@@ -8,7 +8,7 @@ import 'package:student/src/student/screens/group/group_list_screen.dart';
 import 'package:student/src/student/screens/group/widgets/quiz/take_quiz.dart';
 
 import '../../../../../shared/helpers/colors/hex_color.dart';
-import '../../../../../shared/theme/colors/demiks_colors.dart';
+import '../../../../../shared/theme/colors/app_colors.dart';
 
 class QuizOverview extends StatefulWidget {
   final int quizId;
@@ -90,7 +90,7 @@ class _QuizOverviewState extends State<QuizOverview>
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back,
-                color: HexColor.fromHex(DemiksColors.accentColor)),
+                color: HexColor.fromHex(AppColors.accentColor)),
             onPressed: () => Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -163,7 +163,7 @@ class _QuizOverviewState extends State<QuizOverview>
                                   : quiz!.totalPoint.toString()),
                               style: TextStyle(
                                   color: HexColor.fromHex(
-                                      DemiksColors.primaryColor),
+                                      AppColors.primaryColor),
                                   fontSize: 24)),
                           Text(AppLocalizations.of(context)!.points,
                               style: Theme.of(context).textTheme.headline5)
@@ -218,7 +218,7 @@ class _QuizOverviewState extends State<QuizOverview>
     } else {
       return Center(
         child: CircularProgressIndicator(
-          color: HexColor.fromHex(DemiksColors.accentColor),
+          color: HexColor.fromHex(AppColors.accentColor),
         ),
       );
     }

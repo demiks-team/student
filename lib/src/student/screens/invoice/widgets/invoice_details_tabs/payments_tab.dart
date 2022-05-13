@@ -21,6 +21,21 @@ class _PaymentsTabState extends State<PaymentsTab>
   @override
   bool get wantKeepAlive => true;
 
+  String checkTypeOfPayment(String typeOfPayment) {
+    if (typeOfPayment == 'online') {
+      return AppLocalizations.of(context)!.online;
+    } else if (typeOfPayment == 'cash') {
+      return AppLocalizations.of(context)!.cash;
+    } else if (typeOfPayment == 'card') {
+      return AppLocalizations.of(context)!.card;
+    } else if (typeOfPayment == 'processors') {
+      return AppLocalizations.of(context)!.processors;
+    } else if (typeOfPayment == 'check') {
+      return AppLocalizations.of(context)!.check;
+    }
+    return "";
+  }
+
   @override
   Widget build(BuildContext context) {
     var payments = widget.payments;
@@ -54,11 +69,12 @@ class _PaymentsTabState extends State<PaymentsTab>
                                     Padding(
                                         padding: const EdgeInsets.only(
                                             top: 5, bottom: 5),
-                                        child: Text(payments[index]
-                                            .paymentMethodId
-                                            .toString()
-                                            .split('.')
-                                            .last)),
+                                        child: Text(checkTypeOfPayment(
+                                            payments[index]
+                                                .paymentMethodId
+                                                .toString()
+                                                .split('.')
+                                                .last))),
                                   ]),
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.start,

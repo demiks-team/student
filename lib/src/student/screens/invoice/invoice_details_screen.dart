@@ -12,7 +12,7 @@ import '../../../shared/models/refund_model.dart';
 import '../../../shared/services/general_service.dart';
 import '../../../shared/services/invoice_service.dart';
 import '../../../shared/services/payment_service.dart';
-import '../../../shared/theme/colors/demiks_colors.dart';
+import '../../../shared/theme/colors/app_colors.dart';
 import 'widgets/invoice_details_tabs/invoice_details_tab.dart';
 import 'widgets/invoice_details_tabs/payments_tab.dart';
 import 'widgets/invoice_details_tabs/scheduled_payments_tab.dart';
@@ -133,15 +133,15 @@ class _InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
                   title: Text("#" + invoice!.invoiceCode.toString()),
                   leading: IconButton(
                     icon: Icon(Icons.arrow_back,
-                        color: HexColor.fromHex(DemiksColors.accentColor)),
+                        color: HexColor.fromHex(AppColors.accentColor)),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   iconTheme: IconThemeData(
-                      color: HexColor.fromHex(DemiksColors.accentColor)),
+                      color: HexColor.fromHex(AppColors.accentColor)),
                   bottom: TabBar(
                     isScrollable: true,
                     labelPadding: const EdgeInsets.symmetric(horizontal: 35.0),
-                    indicatorColor: HexColor.fromHex(DemiksColors.primaryColor),
+                    indicatorColor: HexColor.fromHex(AppColors.primaryColor),
                     labelColor: Colors.grey,
                     tabs: <Widget>[
                       Tab(text: AppLocalizations.of(context)!.invoice),
@@ -173,7 +173,7 @@ class _InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
       return Center(
         child: CircularProgressIndicator(
           strokeWidth: 2.0,
-          color: HexColor.fromHex(DemiksColors.accentColor),
+          color: HexColor.fromHex(AppColors.accentColor),
         ),
       );
     }

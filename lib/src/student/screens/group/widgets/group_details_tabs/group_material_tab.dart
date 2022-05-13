@@ -7,7 +7,7 @@ import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/models/group_file_model.dart';
 import '../../../../../shared/models/group_learning_material_model.dart';
 import '../../../../../shared/models/learning_material_model.dart';
-import '../../../../../shared/theme/colors/demiks_colors.dart';
+import '../../../../../shared/theme/colors/app_colors.dart';
 import '../../../../../shared/services/group_service.dart';
 
 class GroupMaterialTab extends StatefulWidget {
@@ -108,7 +108,7 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
           return Center(
             child: CircularProgressIndicator(
               strokeWidth: 2.0,
-              color: HexColor.fromHex(DemiksColors.accentColor),
+              color: HexColor.fromHex(AppColors.accentColor),
             ),
           );
         }
@@ -194,7 +194,7 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                                     constraints: const BoxConstraints(),
                                     icon: Icon(Icons.library_books,
                                         color: HexColor.fromHex(
-                                            DemiksColors.primaryColor)),
+                                            AppColors.primaryColor)),
                                     onPressed: () {
                                       showModalBottomSheet<void>(
                                           context: context,
@@ -215,7 +215,7 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                                                         icon: Icon(
                                                             Icons.minimize,
                                                             color: HexColor.fromHex(
-                                                                DemiksColors
+                                                                AppColors
                                                                     .accentColor)),
                                                         onPressed: () =>
                                                             Navigator.of(
@@ -259,7 +259,7 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                                   constraints: const BoxConstraints(),
                                   icon: Icon(Icons.download,
                                       color: HexColor.fromHex(
-                                          DemiksColors.primaryColor)),
+                                          AppColors.primaryColor)),
                                   onPressed: () async => groupService
                                       .getFileFromGroupLearningMaterial(
                                           groupLearningMaterials[index]

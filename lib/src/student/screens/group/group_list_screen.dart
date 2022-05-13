@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../shared/helpers/colors/hex_color.dart';
 import '../../../shared/models/group_model.dart';
-import '../../../shared/theme/colors/demiks_colors.dart';
+import '../../../shared/theme/colors/app_colors.dart';
 
 class GroupListScreen extends StatefulWidget {
   const GroupListScreen({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class _GroupListScreenState extends State<GroupListScreen> {
           automaticallyImplyLeading: false,
         ),
         body: RefreshIndicator(
-          color: HexColor.fromHex(DemiksColors.accentColor),
+          color: HexColor.fromHex(AppColors.accentColor),
           backgroundColor: Theme.of(context).primaryColor,
           triggerMode: RefreshIndicatorTriggerMode.anywhere,
           onRefresh: () async {
@@ -78,7 +78,7 @@ class _GroupListScreenState extends State<GroupListScreen> {
           return Center(
             child: CircularProgressIndicator(
               strokeWidth: 2.0,
-              color: HexColor.fromHex(DemiksColors.accentColor),
+              color: HexColor.fromHex(AppColors.accentColor),
             ),
           );
         }

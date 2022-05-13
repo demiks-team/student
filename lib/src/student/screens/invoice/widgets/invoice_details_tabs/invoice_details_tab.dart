@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:student/src/shared/helpers/colors/hex_color.dart';
-import 'package:student/src/shared/theme/colors/demiks_colors.dart';
+import 'package:student/src/shared/theme/colors/app_colors.dart';
 
 import '../../../../../shared/models/invoice_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -105,7 +105,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                             child: IconButton(
                               icon: Icon(Icons.picture_as_pdf,
                                   color: HexColor.fromHex(
-                                      DemiksColors.accentColor)),
+                                      AppColors.accentColor)),
                               onPressed: () {
                                 invoiceService.exportPdf(invoice.id);
                               },
@@ -123,7 +123,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: 65,
-                  color: HexColor.fromHex(DemiksColors.backgroundColorAlto),
+                  color: HexColor.fromHex(AppColors.backgroundColorAlto),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,7 +235,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                           padding: const EdgeInsets.only(right: 20, left: 20),
                           child: Divider(
                             thickness: 4,
-                            color: HexColor.fromHex(DemiksColors.primaryColor),
+                            color: HexColor.fromHex(AppColors.primaryColor),
                           ),
                         ),
                     ],
@@ -243,7 +243,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                 Container(
                   margin: const EdgeInsets.only(top: 5),
                   height: 15,
-                  color: HexColor.fromHex(DemiksColors.backgroundColorAlto),
+                  color: HexColor.fromHex(AppColors.backgroundColorAlto),
                 ),
               ],
             ),
@@ -293,7 +293,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
           padding: const EdgeInsets.only(right: 50, left: 50),
           child: Divider(
             thickness: 4,
-            color: HexColor.fromHex(DemiksColors.backgroundColorGray),
+            color: HexColor.fromHex(AppColors.backgroundColorGray),
           ),
         ),
         ListTile(
@@ -338,7 +338,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
           padding: const EdgeInsets.only(right: 50, left: 50),
           child: Divider(
             thickness: 4,
-            color: HexColor.fromHex(DemiksColors.backgroundColorGray),
+            color: HexColor.fromHex(AppColors.backgroundColorGray),
           ),
         ),
         ListTile(

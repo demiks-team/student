@@ -7,7 +7,7 @@ import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/models/group_model.dart';
 import '../../../../../shared/models/group_student_model.dart';
 import '../../../../../shared/models/session_summary_model.dart';
-import '../../../../../shared/theme/colors/demiks_colors.dart';
+import '../../../../../shared/theme/colors/app_colors.dart';
 import '../../../../../shared/services/group_service.dart';
 
 class AttendanceGroupTab extends StatefulWidget {
@@ -61,7 +61,7 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
           return Center(
             child: CircularProgressIndicator(
               strokeWidth: 2.0,
-              color: HexColor.fromHex(DemiksColors.accentColor),
+              color: HexColor.fromHex(AppColors.accentColor),
             ),
           );
         }
@@ -100,19 +100,19 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
                             Icon(
                               Icons.check,
                               color:
-                                  HexColor.fromHex(DemiksColors.primaryColor),
+                                  HexColor.fromHex(AppColors.primaryColor),
                               size: 30,
                             ),
                           if (groupLearningMaterials[index].status == 1)
                             Icon(
                               Icons.snooze,
-                              color: HexColor.fromHex(DemiksColors.accentColor),
+                              color: HexColor.fromHex(AppColors.accentColor),
                               size: 30,
                             ),
                           if (groupLearningMaterials[index].status == 2)
                             Icon(
                               Icons.alarm,
-                              color: HexColor.fromHex(DemiksColors.accentColor),
+                              color: HexColor.fromHex(AppColors.accentColor),
                               size: 30,
                             ),
                           if (groupLearningMaterials[index].status == 3)

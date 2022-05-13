@@ -5,7 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/services/payment_service.dart';
-import '../../../../../shared/theme/colors/demiks_colors.dart';
+import '../../../../../shared/theme/colors/app_colors.dart';
 
 class ScheduledPaymentsTab extends StatefulWidget {
   const ScheduledPaymentsTab({Key? key, this.invoiceId, this.currencyFormat})
@@ -62,7 +62,7 @@ class _ScheduledPaymentsTabState extends State<ScheduledPaymentsTab>
           return Center(
             child: CircularProgressIndicator(
               strokeWidth: 2.0,
-              color: HexColor.fromHex(DemiksColors.accentColor),
+              color: HexColor.fromHex(AppColors.accentColor),
             ),
           );
         }

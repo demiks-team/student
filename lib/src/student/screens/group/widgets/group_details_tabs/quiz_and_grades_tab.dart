@@ -7,7 +7,7 @@ import '../../../../../shared/helpers/date_time/start_end_datetime.dart';
 import '../../../../../shared/models/group_model.dart';
 import '../../../../../shared/models/quiz_grade_model.dart';
 import '../../../../../shared/models/quiz_model.dart';
-import '../../../../../shared/theme/colors/demiks_colors.dart';
+import '../../../../../shared/theme/colors/app_colors.dart';
 import '../../../../../shared/services/group_service.dart';
 import '../quiz/quiz_overview.dart';
 
@@ -77,7 +77,7 @@ class _QuizAndGradesTabState extends State<QuizAndGradesTab>
           return Center(
             child: CircularProgressIndicator(
               strokeWidth: 2.0,
-              color: HexColor.fromHex(DemiksColors.accentColor),
+              color: HexColor.fromHex(AppColors.accentColor),
             ),
           );
         }
@@ -198,7 +198,7 @@ class _QuizAndGradesTabState extends State<QuizAndGradesTab>
                               IconButton(
                                 icon: Icon(Icons.fact_check,
                                     color: HexColor.fromHex(
-                                        DemiksColors.primaryColor)),
+                                        AppColors.primaryColor)),
                                 onPressed: () {
                                   Navigator.push(
                                       context,
@@ -218,7 +218,7 @@ class _QuizAndGradesTabState extends State<QuizAndGradesTab>
                               IconButton(
                                 icon: Icon(Icons.quiz,
                                     color: HexColor.fromHex(
-                                        DemiksColors.primaryColor)),
+                                        AppColors.primaryColor)),
                                 onPressed: () {
                                   Navigator.push(
                                       context,

@@ -1,8 +1,20 @@
 {
+    "online": "En línea",
+    "cash": "Dinero en efectivo",
+    "card": "Tarjeta de crédito/débito",
+    "processors": "Procesadores de pago en línea",
+    "check": "Cheque bancario",
     "question": "Pregunta",
     "overview": "visión general",
     "close": "Cerrar",
     "start": "Inicio",
+    "about": "Acerca de",
+    "aboutTitle": "Esta aplicación móvil está diseñada y desarrollada por Demiks Team.",
+    "aboutDescription": "Con sede en Tiohtià:ke, comúnmente conocida como Montreal, Demiks se esfuerza por cerrar las brechas culturales a través del aprendizaje de idiomas.\nLos países de todo el mundo son diversos y ricos en cultura. Aquí en Demiks, creemos que es hora de conocernos. Ya sea que esté buscando aprender o buscando aprendices, estamos aquí para ayudarlo.\nConozca a sus vecinos, haga crecer su comunidad; todo comienza con Bonjour, Hola, Hola.",
+    "learnMoreAboutUs": "Aprenda más acerca de nosotros",
+    "contactUs": "Contáctenos",
+    "help": "Ayudar",
+    "contact": "Contacto",
     "endOfQuizTime": "El tiempo del cuestionario ha terminado.",
     "submittedSuccessfully": "Tus respuestas fueron enviadas con éxito",
     "areYouReady": "Si está listo, haga clic en iniciar",
@@ -95,6 +107,7 @@
     "forgotPassword": "Olvidé mi contraseña",
     "noAccount": "¿No tienes una cuenta?",
     "needHelp": "¿Necesitas ayuda?",
+    "more": "Más",
     "enterPassword": "Introducir la contraseña",
     "student": "Estudiante"
 }
