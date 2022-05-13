@@ -1,7 +1,7 @@
 
 // https://chir.ag/projects/name-that-color/
 
-class DemiksColors {
+class AppColors {
 
   // ------------------ Main colors demiks ------------------
   static const primaryColor = '#067a6c';

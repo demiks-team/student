@@ -1,8 +1,20 @@
 {
+    "online": "Online",
+    "cash": "Cash",
+    "card": "Credit/Debit Card",
+    "processors": "Online Payment Processors",
+    "check": "Bank Check",
     "question": "Question",
     "overview": "Overview",
     "close": "Close",
     "start": "Start",
+    "about": "About",
+    "aboutTitle": "This mobile app is designed and developed by Demiks Team.",
+    "aboutDescription": "Based in Tiohtià:ke, commonly known as Montreal, Demiks strives to bridge cultural divides through language learning.\nCountries around the world are diverse and rich in culture. Here at Demiks, we think it's time to get to know one another. Whether you're looking to learn or looking for learners, we're here to help you.\nGet to know your neighbours, grow your community;it all starts with Bonjour, Hello, Hola.",
+    "learnMoreAboutUs": "Learn more about us",
+    "contactUs": "Contact Us",
+    "help": "Help",
+    "contact": "Contact",
     "endOfQuizTime": "Quiz time is over.",
     "reviewAnswers": "To review the answers click on the button",
     "submittedSuccessfully": "Your answers were submitted successfully",
@@ -95,6 +107,7 @@
     "forgotPassword": "Forgot my password",
     "noAccount": "Don't have an account?",
     "needHelp": "Need Help?",
+    "more": "More",
     "enterPassword": "Enter password",
     "student": "Student"
 }

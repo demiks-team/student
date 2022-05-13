@@ -4,7 +4,7 @@ import 'shared/helpers/colors/hex_color.dart';
 import 'shared/helpers/colors/material_color.dart';
 import 'shared/helpers/navigation_service/navigation_service.dart';
 import 'shared/secure_storage.dart';
-import 'shared/theme/colors/demiks_colors.dart';
+import 'shared/theme/colors/app_colors.dart';
 import 'site/screens/login_screen.dart';
 import 'student/shared-widgets/menu/bottom_navigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -60,7 +60,7 @@ class _AppState extends State<App> {
           ? Center(
               child: CircularProgressIndicator(
                   strokeWidth: 2.0,
-                  color: HexColor.fromHex(DemiksColors.accentColor)))
+                  color: HexColor.fromHex(AppColors.accentColor)))
           : isUserLoggedIn!
               ? const BottomNavigation()
               : const LoginScreen(),

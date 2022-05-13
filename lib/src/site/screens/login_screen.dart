@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:student/src/shared/helpers/colors/hex_color.dart';
-import 'package:student/src/shared/theme/colors/demiks_colors.dart';
+import 'package:student/src/shared/theme/colors/app_colors.dart';
 import '../../student/shared-widgets/menu/bottom_navigation.dart';
 import '../../authentication/services/authentication_service.dart';
 
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               left: 2, right: 2, bottom: 0, top: 25),
                           width: 150,
                           height: 50,
-                          child: Image.asset('assets/images/logo-demiks.png')),
+                          child: Image.asset('assets/images/logo.png')),
                     )),
                 Container(
                   alignment: Alignment.center,
@@ -117,18 +117,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: HexColor.fromHex(
-                                                    DemiksColors.primaryColor)),
+                                                    AppColors.primaryColor)),
                                           ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: HexColor.fromHex(
-                                                    DemiksColors
+                                                    AppColors
                                                         .backgroundColorGray)),
                                           ),
                                           border: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: HexColor.fromHex(
-                                                    DemiksColors
+                                                    AppColors
                                                         .backgroundColorGray)),
                                           ),
                                           helperText: ' ',
@@ -159,18 +159,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: HexColor.fromHex(
-                                                    DemiksColors.primaryColor)),
+                                                    AppColors.primaryColor)),
                                           ),
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: HexColor.fromHex(
-                                                    DemiksColors
+                                                    AppColors
                                                         .backgroundColorGray)),
                                           ),
                                           border: OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: HexColor.fromHex(
-                                                    DemiksColors
+                                                    AppColors
                                                         .backgroundColorGray)),
                                           ),
                                           helperText: ' ',
@@ -231,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               minimumSize:
                                                   const Size.fromHeight(60),
                                               primary: HexColor.fromHex(
-                                                  DemiksColors.primaryColor),
+                                                  AppColors.primaryColor),
                                               padding:
                                                   const EdgeInsets.all(20)),
                                           onPressed:
@@ -324,7 +324,7 @@ class _LoginScreenState extends State<LoginScreen> {
               decoration: BoxDecoration(
                   border: Border(
                 top: BorderSide(
-                  color: HexColor.fromHex(DemiksColors.backgroundColorAlto),
+                  color: HexColor.fromHex(AppColors.backgroundColorAlto),
                 ),
               )),
               child: Column(

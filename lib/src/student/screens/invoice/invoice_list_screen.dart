@@ -6,7 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../shared/helpers/colors/hex_color.dart';
 import '../../../shared/models/invoice_model.dart';
 import '../../../shared/services/invoice_service.dart';
-import '../../../shared/theme/colors/demiks_colors.dart';
+import '../../../shared/theme/colors/app_colors.dart';
 import 'invoice_details_screen.dart';
 
 class InvoiceListScreen extends StatefulWidget {
@@ -25,7 +25,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
           automaticallyImplyLeading: false,
         ),
         body: RefreshIndicator(
-          color: HexColor.fromHex(DemiksColors.accentColor),
+          color: HexColor.fromHex(AppColors.accentColor),
           backgroundColor: Theme.of(context).primaryColor,
           triggerMode: RefreshIndicatorTriggerMode.anywhere,
           onRefresh: () async {
@@ -79,7 +79,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
           return Center(
             child: CircularProgressIndicator(
               strokeWidth: 2.0,
-              color: HexColor.fromHex(DemiksColors.accentColor),
+              color: HexColor.fromHex(AppColors.accentColor),
             ),
           );
         }
