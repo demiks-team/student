@@ -34,6 +34,18 @@ class AuthenticationService {
     return json.encode(response.data).toString();
   }
 
+  Future<void> refreshToken(String token) async {
+    var response = await DioApi().dio.post(
+          dotenv.env['api'].toString() + "security/refresh",
+          data: json.encode({"token": token}),
+        );
+    if (response.statusCode == 200 && response.data != null) {
+      await SecureStorage.setCurrentUser(json.encode(response.data).toString());
+    } else {
+      SecureStorage.removeCurrentUser();
+    }
+  }
+
   Future<bool?> signInGoogle() async {
     bool loginSuccess = false;
 
@@ -82,6 +94,7 @@ class AuthenticationService {
         return false;
       }
     }
+    return false;
   }
 
   Future<bool?> signUpGoogle() async {

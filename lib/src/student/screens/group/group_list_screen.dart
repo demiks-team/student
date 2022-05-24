@@ -123,15 +123,17 @@ class _GroupListScreenState extends State<GroupListScreen> {
                                   Text(groups[index].school!.name.toString()),
                             ),
                           ]),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child: Text(
-                                  groups[index].teacher!.fullName.toString()),
-                            ),
-                          ]),
+                      if (groups[index].teacher != null)
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(top: 5, bottom: 5),
+                                child: Text(
+                                    groups[index].teacher!.fullName.toString()),
+                              ),
+                            ]),
                       if (groups[index].course != null)
                         Row(
                             mainAxisAlignment: MainAxisAlignment.start,

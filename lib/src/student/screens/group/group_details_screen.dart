@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import '../../../shared/helpers/colors/hex_color.dart';
 import '../../../shared/helpers/colors/material_color.dart';
 import '../../../shared/models/group_model.dart';
+import '../../../shared/no_data.dart';
 import '../../../shared/services/group_service.dart';
 import '../../../shared/theme/colors/app_colors.dart';
 import 'widgets/group_details_tabs/attendance_group_tab.dart';
@@ -32,7 +33,7 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
     loadClass();
   }
 
-  void loadClass() async {
+  Future<void> loadClass() async {
     Future<GroupModel> futureClass = groupService.getGroup(widget.groupId);
     await futureClass.then((cm) {
       setState(() {
