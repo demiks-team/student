@@ -30,7 +30,7 @@ class InvoiceDetailsTab extends StatefulWidget {
 
 class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
   final ScrollController controller = ScrollController();
-    final InvoiceService invoiceService = InvoiceService();
+  final InvoiceService invoiceService = InvoiceService();
 
   double get amountDue {
     var invoiceTotal = widget.invoice.total;
@@ -103,9 +103,11 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                           Padding(
                             padding: const EdgeInsets.only(top: 5, bottom: 5),
                             child: IconButton(
+                              padding: EdgeInsets.zero,
+                              constraints: const BoxConstraints(),
                               icon: Icon(Icons.picture_as_pdf,
-                                  color: HexColor.fromHex(
-                                      AppColors.accentColor)),
+                                  color:
+                                      HexColor.fromHex(AppColors.accentColor)),
                               onPressed: () {
                                 invoiceService.exportPdf(invoice.id);
                               },
@@ -290,7 +292,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(right: 50, left: 50),
+          padding: const EdgeInsets.only(right: 22, left: 22),
           child: Divider(
             thickness: 4,
             color: HexColor.fromHex(AppColors.backgroundColorGray),
@@ -335,7 +337,7 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
           ),
         ),
         Container(
-          padding: const EdgeInsets.only(right: 50, left: 50),
+          padding: const EdgeInsets.only(right: 22, left: 22),
           child: Divider(
             thickness: 4,
             color: HexColor.fromHex(AppColors.backgroundColorGray),

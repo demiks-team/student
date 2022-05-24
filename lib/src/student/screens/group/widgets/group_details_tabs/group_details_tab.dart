@@ -18,12 +18,13 @@ class GroupDetailsTab extends StatelessWidget {
               child: Text(groupModel.school!.name.toString()),
             ),
           ]),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 5, bottom: 5),
-              child: Text(groupModel.teacher!.fullName.toString()),
-            ),
-          ]),
+          if (groupModel.teacher != null)
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Text(groupModel.teacher!.fullName.toString()),
+              ),
+            ]),
           if (groupModel.course != null)
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Padding(

@@ -20,50 +20,43 @@ class GroupMaterialTab extends StatefulWidget {
 
 class _GroupMaterialTabState extends State<GroupMaterialTab>
     with AutomaticKeepAliveClientMixin {
-  Future<List<GroupLearningMaterialModel>>? groupLearningMaterial;
   final GroupService groupService = GroupService();
+  List<GroupLearningMaterialModel>? groupLearningMaterials;
   List<GroupFileModel>? groupFileList;
+  bool completedTasks = false;
+
   final ScrollController controller = ScrollController();
 
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
-      await getGroupLearningMaterialList();
+      await initializeTheData();
+      completedTasks = true;
     });
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return Scaffold(body: _buildBody(context));
-  }
-
-  Future<List<GroupLearningMaterialModel>>
-      getGroupLearningMaterialList() async {
-    groupLearningMaterial =
-        groupService.getGroupLearningMaterial(widget.groupId!);
-
+  Future<void> initializeTheData() async {
+    await getGroupLearningMaterialList();
     await getGroupLearningMaterialFiles();
-
-    return groupLearningMaterial!;
+    await convertGroupFilesToGroupLearning();
   }
 
-  Future<List<GroupFileModel>> getGroupLearningMaterialFiles() async {
-    var groupMaterialFile =
-        groupService.getGroupLearningMaterialFiles(widget.groupId!);
-
-    await convertGroupFilesToGroupLearning(groupMaterialFile);
-
-    return groupMaterialFile;
+  Future<void> getGroupLearningMaterialList() async {
+    await groupService
+        .getGroupLearningMaterial(widget.groupId!)
+        .then((gl) => groupLearningMaterials = gl);
   }
 
-  convertGroupFilesToGroupLearning(
-      Future<List<GroupFileModel>> groupMaterialFile) async {
-    await groupMaterialFile.then((value) => setState(() {
-          groupFileList = value;
-        }));
+  Future<void> getGroupLearningMaterialFiles() async {
+    await groupService
+        .getGroupLearningMaterialFiles(widget.groupId!)
+        .then((gl) => setState(() {
+              groupFileList = gl;
+            }));
+  }
 
+  convertGroupFilesToGroupLearning() async {
     if (groupFileList != null) {
       for (var gf in groupFileList!) {
         var groupLearning =
@@ -75,7 +68,7 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
         groupLearning.learningMaterial?.estimatedStudyTime =
             gf.estimatedStudyTime;
         groupLearning.learningMaterial?.guid = gf.fileGuid;
-        groupLearningMaterial?.then((value) => value.add(groupLearning));
+        groupLearningMaterials!.add(groupLearning);
       }
     }
   }
@@ -83,196 +76,193 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
   @override
   bool get wantKeepAlive => true;
 
-  FutureBuilder<List<GroupLearningMaterialModel>> _buildBody(
-      BuildContext context) {
-    return FutureBuilder<List<GroupLearningMaterialModel>>(
-      future: groupLearningMaterial,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          final List<GroupLearningMaterialModel>? classLearningMaterials =
-              snapshot.data;
-          if (classLearningMaterials != null) {
-            if (classLearningMaterials.isNotEmpty) {
-              return _buildClassLearningMaterials(
-                  context, classLearningMaterials);
-            } else {
-              return Center(
-                  child:
-                      Text(AppLocalizations.of(context)!.noLearningMaterial));
-            }
-          } else {
-            return Center(
-                child: Text(AppLocalizations.of(context)!.noLearningMaterial));
-          }
-        } else {
-          return Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 2.0,
-              color: HexColor.fromHex(AppColors.accentColor),
-            ),
-          );
-        }
-      },
-    );
-  }
-
-  ListView _buildClassLearningMaterials(BuildContext context,
-      List<GroupLearningMaterialModel>? groupLearningMaterials) {
-    return ListView.builder(
-      controller: controller,
-      itemCount: groupLearningMaterials!.length,
-      padding: const EdgeInsets.only(top: 25, left: 35, right: 35, bottom: 25),
-      itemBuilder: (context, index) {
-        return Card(
-            elevation: 4,
-            child: ListTile(
-              title: Container(
-                margin: const EdgeInsets.only(
-                    left: 15, top: 25, bottom: 15, right: 15),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Scaffold(
+        body: completedTasks
+            ? groupLearningMaterials != null &&
+                    groupLearningMaterials!.isNotEmpty
+                ? ListView(
+                    padding: const EdgeInsets.only(
+                        top: 25, left: 35, right: 35, bottom: 25),
                     children: [
-                      Text(
-                        groupLearningMaterials[index]
-                            .learningMaterial!
-                            .title
-                            .toString(),
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                    ]),
-              ),
-              subtitle: Container(
-                  margin:
-                      const EdgeInsets.only(left: 15, right: 15, bottom: 15),
-                  child: Column(
-                    children: [
-                      if (groupLearningMaterials[index]
-                              .learningMaterial!
-                              .description
-                              ?.isNotEmpty ==
-                          true)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text(groupLearningMaterials[index]
-                                    .learningMaterial!
-                                    .description
-                                    .toString()),
+                      for (var groupLearningMaterials
+                          in groupLearningMaterials!)
+                        Card(
+                            elevation: 4,
+                            child: ListTile(
+                              title: Container(
+                                margin: const EdgeInsets.only(
+                                    left: 15, top: 25, bottom: 15, right: 15),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          groupLearningMaterials
+                                              .learningMaterial!.title
+                                              .toString(),
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20),
+                                        ),
+                                      )
+                                    ]),
                               ),
-                            ]),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child: Text(AppLocalizations.of(context)!
-                                      .estimatedStudyTime +
-                                  ": " +
-                                  groupLearningMaterials[index]
-                                      .learningMaterial!
-                                      .estimatedStudyTime
-                                      .toString()),
-                            ),
-                          ]),
-                      if (groupLearningMaterials[index]
-                              .learningMaterial!
-                              .body
-                              ?.isNotEmpty ==
-                          true)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 5, bottom: 5),
-                                  child: IconButton(
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints(),
-                                    icon: Icon(Icons.library_books,
-                                        color: HexColor.fromHex(
-                                            AppColors.primaryColor)),
-                                    onPressed: () {
-                                      showModalBottomSheet<void>(
-                                          context: context,
-                                          isScrollControlled: true,
-                                          builder: (context) => Container(
-                                              padding: const EdgeInsets.all(2),
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.75,
-                                              child: Center(
-                                                  child: Column(
-                                                children: [
-                                                  Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: IconButton(
-                                                        icon: Icon(
-                                                            Icons.minimize,
-                                                            color: HexColor.fromHex(
-                                                                AppColors
-                                                                    .accentColor)),
-                                                        onPressed: () =>
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop(),
-                                                      )),
-                                                  Expanded(
-                                                      child: ListView(
-                                                    children: [
-                                                      ListTile(
-                                                        title:
-                                                            SingleChildScrollView(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(5),
-                                                                child: Html(
-                                                                  data: groupLearningMaterials[
-                                                                          index]
-                                                                      .learningMaterial!
-                                                                      .body
-                                                                      .toString(),
-                                                                )),
-                                                      )
-                                                    ],
-                                                  ))
-                                                ],
-                                              ))));
-                                    },
+                              subtitle: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 15, right: 15, bottom: 15),
+                                  child: Column(
+                                    children: [
+                                      if (groupLearningMaterials
+                                              .learningMaterial!
+                                              .description
+                                              ?.isNotEmpty ==
+                                          true)
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 5, bottom: 5),
+                                                child: Text(
+                                                    groupLearningMaterials
+                                                        .learningMaterial!
+                                                        .description
+                                                        .toString()),
+                                              ),
+                                            ]),
+                                      Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 5, bottom: 5),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                          .estimatedStudyTime +
+                                                      ": " +
+                                                      groupLearningMaterials
+                                                          .learningMaterial!
+                                                          .estimatedStudyTime
+                                                          .toString()),
+                                            ),
+                                          ]),
+                                      if (groupLearningMaterials
+                                              .learningMaterial!
+                                              .body
+                                              ?.isNotEmpty ==
+                                          true)
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 5, bottom: 5),
+                                                  child: IconButton(
+                                                    padding: EdgeInsets.zero,
+                                                    constraints:
+                                                        const BoxConstraints(),
+                                                    icon: Icon(
+                                                        Icons.library_books,
+                                                        color: HexColor.fromHex(
+                                                            AppColors
+                                                                .primaryColor)),
+                                                    onPressed: () {
+                                                      showModalBottomSheet<
+                                                              void>(
+                                                          context: context,
+                                                          isScrollControlled:
+                                                              true,
+                                                          builder: (context) =>
+                                                              Container(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          2),
+                                                                  height: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.75,
+                                                                  child: Center(
+                                                                      child:
+                                                                          Column(
+                                                                    children: [
+                                                                      Align(
+                                                                          alignment: Alignment
+                                                                              .center,
+                                                                          child:
+                                                                              IconButton(
+                                                                            icon:
+                                                                                Icon(Icons.minimize, color: HexColor.fromHex(AppColors.accentColor)),
+                                                                            onPressed: () =>
+                                                                                Navigator.of(context).pop(),
+                                                                          )),
+                                                                      Expanded(
+                                                                          child:
+                                                                              ListView(
+                                                                        children: [
+                                                                          ListTile(
+                                                                            title: SingleChildScrollView(
+                                                                                padding: const EdgeInsets.all(5),
+                                                                                child: Html(
+                                                                                  data: groupLearningMaterials.learningMaterial!.body.toString(),
+                                                                                )),
+                                                                          )
+                                                                        ],
+                                                                      ))
+                                                                    ],
+                                                                  ))));
+                                                    },
+                                                  )),
+                                            ]),
+                                      if (groupLearningMaterials
+                                              .learningMaterial!
+                                              .guid
+                                              ?.isNotEmpty ==
+                                          true)
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              IconButton(
+                                                  padding: EdgeInsets.zero,
+                                                  constraints:
+                                                      const BoxConstraints(),
+                                                  icon: Icon(
+                                                      Icons.download,
+                                                      color: HexColor
+                                                          .fromHex(AppColors
+                                                              .primaryColor)),
+                                                  onPressed: () async => groupService
+                                                      .getFileFromGroupLearningMaterial(
+                                                          groupLearningMaterials
+                                                              .learningMaterial!
+                                                              .title!,
+                                                          groupLearningMaterials
+                                                              .learningMaterial!
+                                                              .guid!)),
+                                            ])
+                                    ],
                                   )),
-                            ]),
-                      if (groupLearningMaterials[index]
-                              .learningMaterial!
-                              .guid
-                              ?.isNotEmpty ==
-                          true)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              IconButton(
-                                  padding: EdgeInsets.zero,
-                                  constraints: const BoxConstraints(),
-                                  icon: Icon(Icons.download,
-                                      color: HexColor.fromHex(
-                                          AppColors.primaryColor)),
-                                  onPressed: () async => groupService
-                                      .getFileFromGroupLearningMaterial(
-                                          groupLearningMaterials[index]
-                                              .learningMaterial!
-                                              .title!,
-                                          groupLearningMaterials[index]
-                                              .learningMaterial!
-                                              .guid!)),
-                            ])
+                            ))
                     ],
-                  )),
-            ));
-      },
-    );
+                  )
+                : Center(
+                    child:
+                        Text(AppLocalizations.of(context)!.noLearningMaterial))
+            : Center(
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.0,
+                  color: HexColor.fromHex(AppColors.accentColor),
+                ),
+              ));
   }
 }

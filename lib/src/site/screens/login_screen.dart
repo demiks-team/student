@@ -49,11 +49,13 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         submitted = true;
       });
+
       var response = await authenticationService
           .login(_userEmail, _password)
           .whenComplete(() => setState(() {
                 submitted = false;
               }));
+
       if (response != null) {
         Navigator.push(context,
             MaterialPageRoute(builder: (_) => const BottomNavigation()));
