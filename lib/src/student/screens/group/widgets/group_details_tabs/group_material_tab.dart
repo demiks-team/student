@@ -115,43 +115,33 @@ class _GroupMaterialTabState extends State<GroupMaterialTab>
                                   margin: const EdgeInsets.only(
                                       left: 15, right: 15, bottom: 15),
                                   child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       if (groupLearningMaterials
                                               .learningMaterial!
                                               .description
                                               ?.isNotEmpty ==
                                           true)
-                                        Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 5, bottom: 5),
-                                                child: Text(
-                                                    groupLearningMaterials
-                                                        .learningMaterial!
-                                                        .description
-                                                        .toString()),
-                                              ),
-                                            ]),
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 5, bottom: 5),
-                                              child: Text(
-                                                  AppLocalizations.of(context)!
-                                                          .estimatedStudyTime +
-                                                      ": " +
-                                                      groupLearningMaterials
-                                                          .learningMaterial!
-                                                          .estimatedStudyTime
-                                                          .toString()),
-                                            ),
-                                          ]),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 5, bottom: 5),
+                                          child: Text(groupLearningMaterials
+                                              .learningMaterial!.description
+                                              .toString()),
+                                        ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 5, bottom: 5),
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                    .estimatedStudyTime +
+                                                ": " +
+                                                groupLearningMaterials
+                                                    .learningMaterial!
+                                                    .estimatedStudyTime
+                                                    .toString()),
+                                      ),
                                       if (groupLearningMaterials
                                               .learningMaterial!
                                               .body

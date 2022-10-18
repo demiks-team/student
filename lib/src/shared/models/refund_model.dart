@@ -26,7 +26,7 @@ class RefundModel {
   String? refundDate;
   int? refundMethodId;
   int? reasonId;
-  int? refundMemo;
+  String? refundMemo;
   double? amount;
 
   factory RefundModel.fromJson(Map<String, dynamic> json) => RefundModel(

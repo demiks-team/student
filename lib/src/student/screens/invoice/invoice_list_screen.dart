@@ -114,36 +114,23 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
                   margin:
                       const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child:
-                                  Text(invoices[index].schoolName.toString()),
-                            ),
-                          ]),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child: Text("\$" +
-                                  invoices[index].subtotal!.toStringAsFixed(2)),
-                            ),
-                          ]),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child: Text(DateFormat("yMMMMd").format(
-                                  DateTime.parse(
-                                          invoices[index].createdOn.toString())
-                                      .toLocal())),
-                            ),
-                          ]),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: Text(invoices[index].schoolName.toString()),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: Text("\$" +
+                            invoices[index].subtotal!.toStringAsFixed(2)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: Text(DateFormat("yMMMMd").format(
+                            DateTime.parse(invoices[index].createdOn.toString())
+                                .toLocal())),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: const <Widget>[

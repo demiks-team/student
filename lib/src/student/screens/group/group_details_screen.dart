@@ -4,8 +4,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../../../shared/helpers/colors/hex_color.dart';
 import '../../../shared/helpers/colors/material_color.dart';
+import '../../../shared/models/evaluation_criteria_group_student_model.dart';
 import '../../../shared/models/group_model.dart';
-import '../../../shared/no_data.dart';
 import '../../../shared/services/group_service.dart';
 import '../../../shared/theme/colors/app_colors.dart';
 import 'widgets/group_details_tabs/attendance_group_tab.dart';
@@ -24,36 +24,48 @@ class GroupDetailsScreen extends StatefulWidget {
 }
 
 class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
-  GroupModel? groupModel;
+  GroupModel? group;
+  EvaluationCriteriaGroupStudentModel? evaluationCriteriaGroupStudent;
   final GroupService groupService = GroupService();
 
   @override
   initState() {
     super.initState();
     loadClass();
+    loadEvaluationCriteria();
   }
 
   Future<void> loadClass() async {
     Future<GroupModel> futureClass = groupService.getGroup(widget.groupId);
-    await futureClass.then((cm) {
+    await futureClass.then((g) {
       setState(() {
-        groupModel = cm;
+        group = g;
+      });
+    });
+  }
+
+  Future<void> loadEvaluationCriteria() async {
+    Future<EvaluationCriteriaGroupStudentModel> futureClass =
+        groupService.getEvaluationCriteria(widget.groupId);
+    await futureClass.then((ec) {
+      setState(() {
+        evaluationCriteriaGroupStudent = ec;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (groupModel != null) {
+    if (group != null && evaluationCriteriaGroupStudent != null) {
       return MaterialApp(
           debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
+          localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: [
+          supportedLocales: const [
             Locale('en', ''),
             Locale('es', ''),
             Locale('fr', ''),
@@ -64,7 +76,7 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
               length: 5,
               child: Scaffold(
                 appBar: AppBar(
-                  title: Text(groupModel!.title.toString()),
+                  title: Text(group!.title.toString()),
                   leading: IconButton(
                     icon: Icon(Icons.arrow_back,
                         color: HexColor.fromHex(AppColors.accentColor)),
@@ -88,11 +100,14 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
                 ),
                 body: TabBarView(
                   children: [
-                    GroupDetailsTab(groupModel: groupModel!),
-                    AttendanceGroupTab(group: groupModel),
-                    GroupMaterialTab(groupId: groupModel!.id),
-                    QuizAndGradesTab(group: groupModel),
-                    HomeworkTab(groupId: groupModel!.id),
+                    GroupDetailsTab(
+                        group: group!,
+                        evaluationCriteriaGroupStudent:
+                            evaluationCriteriaGroupStudent!),
+                    AttendanceGroupTab(group: group),
+                    GroupMaterialTab(groupId: group!.id),
+                    QuizAndGradesTab(group: group),
+                    HomeworkTab(groupId: group!.id),
                   ],
                 ),
               )));

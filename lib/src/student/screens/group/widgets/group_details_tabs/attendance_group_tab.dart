@@ -82,88 +82,82 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
               title: Container(
                   margin: const EdgeInsets.only(
                       left: 15, top: 25, bottom: 15, right: 15),
-                  child: Column(children: [
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                              margin: const EdgeInsets.only(top: 1),
-                              child: Text(
-                                DateFormat("MMMMd").format(DateTime.parse(
-                                        groupLearningMaterials[index]
-                                            .sessionDate!)
-                                    .toLocal()),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                  margin: const EdgeInsets.only(top: 1),
+                                  child: Text(
+                                    DateFormat("MMMMd").format(DateTime.parse(
+                                            groupLearningMaterials[index]
+                                                .sessionDate!)
+                                        .toLocal()),
+                                    style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+                              if (groupLearningMaterials[index].status == 0)
+                                Icon(
+                                  Icons.check,
+                                  color:
+                                      HexColor.fromHex(AppColors.primaryColor),
+                                  size: 30,
+                                ),
+                              if (groupLearningMaterials[index].status == 1)
+                                Icon(
+                                  Icons.snooze,
+                                  color:
+                                      HexColor.fromHex(AppColors.accentColor),
+                                  size: 30,
+                                ),
+                              if (groupLearningMaterials[index].status == 2)
+                                Icon(
+                                  Icons.alarm,
+                                  color:
+                                      HexColor.fromHex(AppColors.accentColor),
+                                  size: 30,
+                                ),
+                              if (groupLearningMaterials[index].status == 3)
+                                const Icon(
+                                  Icons.block,
+                                  color: Colors.red,
+                                  size: 30,
+                                )
+                            ]),
+                        Container(
+                            margin: const EdgeInsets.only(top: 5),
+                            child: Text(
+                                groupLearningMaterials[index]
+                                        .sessionNumber
+                                        .toString() +
+                                    "/" +
+                                    widget.group!.numberOfSessions.toString(),
                                 style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              )),
-                          if (groupLearningMaterials[index].status == 0)
-                            Icon(
-                              Icons.check,
-                              color:
-                                  HexColor.fromHex(AppColors.primaryColor),
-                              size: 30,
-                            ),
-                          if (groupLearningMaterials[index].status == 1)
-                            Icon(
-                              Icons.snooze,
-                              color: HexColor.fromHex(AppColors.accentColor),
-                              size: 30,
-                            ),
-                          if (groupLearningMaterials[index].status == 2)
-                            Icon(
-                              Icons.alarm,
-                              color: HexColor.fromHex(AppColors.accentColor),
-                              size: 30,
-                            ),
-                          if (groupLearningMaterials[index].status == 3)
-                            const Icon(
-                              Icons.block,
-                              color: Colors.red,
-                              size: 30,
-                            )
-                        ]),
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                      Container(
-                          margin: const EdgeInsets.only(top: 5),
-                          child: Text(
-                              groupLearningMaterials[index]
-                                      .sessionNumber
-                                      .toString() +
-                                  "/" +
-                                  widget.group!.numberOfSessions.toString(),
-                              style: const TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold)))
-                    ])
-                  ])),
+                                    fontSize: 15, fontWeight: FontWeight.bold)))
+                      ])),
               subtitle: Container(
                   margin:
                       const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (groupLearningMaterials[index].notesForStudent != null)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text(groupLearningMaterials[index]
-                                    .notesForStudent!
-                                    .toString()),
-                              ),
-                            ]),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 5),
+                          child: Text(groupLearningMaterials[index]
+                              .notesForStudent!
+                              .toString()),
+                        ),
                       if (groupLearningMaterials[index].teacherNote != null)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text(groupLearningMaterials[index]
-                                    .teacherNote!
-                                    .toString()),
-                              ),
-                            ]),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 5),
+                          child: Text(groupLearningMaterials[index]
+                              .teacherNote!
+                              .toString()),
+                        ),
                     ],
                   )),
             ));

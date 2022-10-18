@@ -55,8 +55,10 @@ class _ScheduledPaymentsTabState extends State<ScheduledPaymentsTab>
             return _buildScheduledPayments(context, scheduledPaymentList);
           } else {
             return Center(
-                child: Text(
-                    AppLocalizations.of(context)!.noScheduledPaymentsReceived));
+                child: Container(
+                    margin: const EdgeInsets.only(left: 10, right: 10),
+                    child: Text(AppLocalizations.of(context)!
+                        .noScheduledPaymentsReceived)));
           }
         } else {
           return Center(

@@ -43,6 +43,7 @@
     "noData": "Aucune donnée disponible",
     "attendance": "Présence",
     "estimatedStudyTime": "Temps d'étude estimé (en minutes)",
+    "finalEvaluation": "Évaluation finale",
     "noFile": "Il n'y a pas de fichiers dans cette classe pour le moment.",
     "noFeedbacksInTheClass": "Aucune évaluation n'a été attribuée à cette classe pour le moment.",
     "submitTitle": "Êtes-vous sûr de vouloir soumettre?",
