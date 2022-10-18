@@ -98,45 +98,27 @@ class _HomeworkTabState extends State<HomeworkTab>
                   margin:
                       const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (homeworks[index].deadline != null)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text(
-                                    AppLocalizations.of(context)!.deadline +
-                                        ": " +
-                                        convertDateToLocal(
-                                            homeworks[index].deadline!)),
-                              ),
-                            ]),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 5),
+                          child: Text(AppLocalizations.of(context)!.deadline +
+                              ": " +
+                              convertDateToLocal(homeworks[index].deadline!)),
+                        ),
                       if (homeworks[index].description != null)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text(
-                                    homeworks[index].description!.toString()),
-                              ),
-                            ]),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 5),
+                          child: Text(homeworks[index].description!.toString()),
+                        ),
                       if (homeworks[index].grade != null)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text(
-                                    AppLocalizations.of(context)!.grade +
-                                        ": " +
-                                        homeworks[index].grade!.toString()),
-                              ),
-                            ]),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 5),
+                          child: Text(AppLocalizations.of(context)!.grade +
+                              ": " +
+                              homeworks[index].grade!.toString()),
+                        ),
                     ],
                   )),
             ));

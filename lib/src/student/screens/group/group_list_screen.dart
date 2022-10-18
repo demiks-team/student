@@ -113,49 +113,28 @@ class _GroupListScreenState extends State<GroupListScreen> {
                   margin:
                       const EdgeInsets.only(left: 15, right: 15, bottom: 15),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child:
-                                  Text(groups[index].school!.name.toString()),
-                            ),
-                          ]),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: Text(groups[index].school!.name.toString()),
+                      ),
                       if (groups[index].teacher != null)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child: Text(
-                                    groups[index].teacher!.fullName.toString()),
-                              ),
-                            ]),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 5),
+                          child:
+                              Text(groups[index].teacher!.fullName.toString()),
+                        ),
                       if (groups[index].course != null)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child:
-                                    Text(groups[index].course!.name.toString()),
-                              ),
-                            ]),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 5),
+                          child: Text(groups[index].course!.name.toString()),
+                        ),
                       if (groups[index].room != null)
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                child:
-                                    Text(groups[index].room!.title.toString()),
-                              ),
-                            ]),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, bottom: 5),
+                          child: Text(groups[index].room!.title.toString()),
+                        ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: const <Widget>[

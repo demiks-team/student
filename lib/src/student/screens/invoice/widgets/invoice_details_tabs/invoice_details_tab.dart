@@ -53,66 +53,81 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
           ListTile(
             title: Container(
                 margin: const EdgeInsets.all(5),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 10),
+                        child: Text(
+                          AppLocalizations.of(context)!.student,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 30),
+                        ),
+                      ),
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5, bottom: 10),
-                            child: Text(
-                              AppLocalizations.of(context)!.student,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 30),
+                          Expanded(
+                            flex: 5,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(top: 5, bottom: 5),
+                                  child: Text(
+                                      invoice.student!.fullName.toString(),
+                                      style: const TextStyle(fontSize: 18.0)),
+                                ),
+                                if (invoice.student!.email != null)
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5, bottom: 5),
+                                    child: Text(
+                                        invoice.student!.email.toString(),
+                                        style: const TextStyle(fontSize: 18.0)),
+                                  ),
+                              ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5, bottom: 5),
-                            child: Text(invoice.student!.fullName.toString(),
-                                style: const TextStyle(fontSize: 18.0)),
-                          ),
-                          if (invoice.student!.email != null)
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              child: Text(invoice.student!.email.toString(),
-                                  style: const TextStyle(fontSize: 18.0)),
-                            ),
-                          const Padding(
-                            padding: EdgeInsets.only(top: 5, bottom: 15),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5, bottom: 5),
-                            child: Text("# " + invoice.invoiceCode.toString(),
-                                style: const TextStyle(fontSize: 18.0)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5, bottom: 5),
-                            child: Text(
-                                DateFormat("yMMMMd").format(
-                                    DateTime.parse(invoice.createdOn.toString())
-                                        .toLocal()),
-                                style: const TextStyle(fontSize: 18.0)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5, bottom: 5),
-                            child: IconButton(
-                              padding: EdgeInsets.zero,
-                              constraints: const BoxConstraints(),
-                              icon: Icon(Icons.picture_as_pdf,
-                                  color:
-                                      HexColor.fromHex(AppColors.accentColor)),
-                              onPressed: () {
-                                invoiceService.exportPdf(invoice.id);
-                              },
-                            ),
-                          ),
+                          Expanded(
+                              flex: 5,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5, bottom: 5),
+                                    child: Text(
+                                        "# " + invoice.invoiceCode.toString(),
+                                        style: const TextStyle(fontSize: 18.0)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5, bottom: 5),
+                                    child: Text(
+                                        DateFormat("yMMMMd").format(
+                                            DateTime.parse(invoice.createdOn
+                                                    .toString())
+                                                .toLocal()),
+                                        style: const TextStyle(fontSize: 18.0)),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5, bottom: 5),
+                                    child: IconButton(
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(),
+                                      icon: Icon(Icons.picture_as_pdf,
+                                          color: HexColor.fromHex(
+                                              AppColors.accentColor)),
+                                      onPressed: () {
+                                        invoiceService.exportPdf(invoice.id);
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ))
                         ],
                       )
                     ])),
@@ -163,74 +178,40 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                       Container(
                           margin: const EdgeInsets.all(0),
                           width: MediaQuery.of(context).size.width,
-                          child: Row(
+                          child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          left: 20,
-                                          right: 20,
-                                          top: 5,
-                                          bottom: 5),
-                                      child: Text(item.course!.name!,
-                                          style: const TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          left: 20,
-                                          right: 20,
-                                          top: 5,
-                                          bottom: 5),
-                                      child: Text(
-                                        item.quantity.toString() +
-                                            " x " +
-                                            currency!.format(item.unitPrice),
-                                        style: const TextStyle(fontSize: 14),
-                                      ),
-                                    ),
-                                    if (item.discountAmount! > 0)
-                                      Container(
-                                        margin: const EdgeInsets.only(
-                                            left: 20,
-                                            right: 20,
-                                            top: 5,
-                                            bottom: 5),
-                                        child: Text(
-                                          AppLocalizations.of(context)!
-                                                  .discount +
-                                              " : " +
-                                              currency
-                                                  .format(item.discountAmount),
-                                          style: const TextStyle(fontSize: 14),
-                                        ),
-                                      ),
-                                  ],
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 20, right: 20, top: 5, bottom: 5),
+                                  child: Text(item.course!.name!,
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      )),
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.only(
-                                          left: 20,
-                                          right: 20,
-                                          top: 5,
-                                          bottom: 5),
-                                      child: Text(
-                                          currency.format(item.subtotalPrice!),
-                                          style: const TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold,
-                                          )),
-                                    ),
-                                  ],
+                                Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 20, right: 20, top: 5, bottom: 5),
+                                  child: Text(
+                                    item.quantity.toString() +
+                                        " x " +
+                                        currency!.format(item.unitPrice),
+                                    style: const TextStyle(fontSize: 14),
+                                  ),
                                 ),
+                                if (item.discountAmount! > 0)
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 20, right: 20, top: 5, bottom: 5),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.discount +
+                                          " : " +
+                                          currency.format(item.discountAmount),
+                                      style: const TextStyle(fontSize: 14),
+                                    ),
+                                  ),
                               ])),
                       if (item != invoice.invoiceItems!.last)
                         Container(

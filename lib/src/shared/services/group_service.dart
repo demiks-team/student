@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:student/src/shared/models/group_student_model.dart';
 
 import '../../authentication/helpers/dio/dio_api.dart';
+import '../models/evaluation_criteria_group_student_model.dart';
 import '../models/group_file_model.dart';
 import '../models/group_learning_material_model.dart';
 import '../models/group_model.dart';
@@ -158,6 +159,51 @@ class GroupService {
       return homeworkList;
     } else {
       throw "Unable to retrieve homeworks.";
+    }
+  }
+
+  Future<EvaluationCriteriaGroupStudentModel> getEvaluationCriteria(
+      int id) async {
+    var response = await DioApi().dio.get(dotenv.env['api'].toString() +
+        "groups/group/" +
+        id.toString() +
+        "/evaluationcriteria");
+
+    Map<String, dynamic> decodedList = jsonDecode(json.encode(response.data));
+
+    if (response.statusCode == 200) {
+      return EvaluationCriteriaGroupStudentModel.fromJson(decodedList);
+    } else {
+      throw Exception('Unable to retrieve class.');
+    }
+  }
+
+  Future<void> getCertificateStudent(int groupId) async {
+    var dir = await getApplicationDocumentsDirectory();
+
+    var response = await DioApi().dio.download(
+        dotenv.env['api'].toString() +
+            "certificate/export/" +
+            groupId.toString(),
+        dir);
+
+    if (response.statusCode != 200) {
+      throw Exception('Unable to retrieve file.');
+    }
+  }
+
+  Future<void> exportReportCardStudent(int groupId) async {
+    var dir = await getApplicationDocumentsDirectory();
+
+    var response = await DioApi().dio.download(
+        dotenv.env['api'].toString() +
+            "groups/group/" +
+            groupId.toString() +
+            "/exportreportcard",
+        dir);
+
+    if (response.statusCode != 200) {
+      throw Exception('Unable to retrieve file.');
     }
   }
 }

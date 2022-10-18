@@ -113,13 +113,13 @@ class _InvoiceDetailsScreenState extends State<InvoiceDetailsScreen> {
     if (completedTasks) {
       return MaterialApp(
           debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
+          localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: [
+          supportedLocales: const [
             Locale('en', ''),
             Locale('es', ''),
             Locale('fr', ''),

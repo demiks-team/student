@@ -62,33 +62,27 @@ class _PaymentsTabState extends State<PaymentsTab>
                         subtitle: Container(
                             margin: const EdgeInsets.only(
                                 left: 15, right: 15, bottom: 15),
-                            child: Column(children: [
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 5, bottom: 5),
-                                        child: Text(checkTypeOfPayment(
-                                            payments[index]
-                                                .paymentMethodId
-                                                .toString()
-                                                .split('.')
-                                                .last))),
-                                  ]),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 5, bottom: 5),
-                                        child: Text(DateFormat("yMMMMd").format(
-                                            DateTime.parse(payments[index]
-                                                    .paymentDate
-                                                    .toString())
-                                                .toLocal()))),
-                                  ]),
-                            ]))),
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 5, bottom: 5),
+                                      child: Text(checkTypeOfPayment(
+                                          payments[index]
+                                              .paymentMethodId
+                                              .toString()
+                                              .split('.')
+                                              .last))),
+                                  Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 5, bottom: 5),
+                                      child: Text(DateFormat("yMMMMd").format(
+                                          DateTime.parse(payments[index]
+                                                  .paymentDate
+                                                  .toString())
+                                              .toLocal()))),
+                                ]))),
                   );
                 })
             : Center(

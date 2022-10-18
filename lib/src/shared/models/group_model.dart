@@ -22,7 +22,8 @@ class GroupModel {
     this.course,
     this.roomId,
     this.room,
-    this.numberOfSessions 
+    this.numberOfSessions,
+    this.evaluationIsDone
   });
   int id;
   String? title;
@@ -35,6 +36,7 @@ class GroupModel {
   int? roomId;
   RoomModel? room;
   int? numberOfSessions;
+  bool? evaluationIsDone;
   factory GroupModel.fromJson(Map<String, dynamic> json) => GroupModel(
         id: json["id"],
         title: json["title"],
@@ -53,6 +55,7 @@ class GroupModel {
         roomId: json["roomId"],
         room: json["room"] != null ? RoomModel.fromJson(json["room"]) : null,
         numberOfSessions: json["numberOfSessions"],
+        evaluationIsDone: json["evaluationIsDone"]
       );
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -66,5 +69,6 @@ class GroupModel {
         "roomId": roomId,
         "room": room != null ? room!.toJson() : null,
         "numberOfSessions": numberOfSessions,
+        "evaluationIsDone": evaluationIsDone
       };
 }
