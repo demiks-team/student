@@ -6,16 +6,17 @@ class NoData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Center(
+        child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Icon(Icons.comment),
+        const Icon(Icons.comment),
         Text(
           AppLocalizations.of(context)!.noData,
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         Image.asset('assets/images/arrow.jpg')
       ],
-    );
+    ));
   }
 }

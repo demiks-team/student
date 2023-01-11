@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:student/src/shared/models/group_student_model.dart';
 
 import '../../authentication/helpers/dio/dio_api.dart';
+import '../models/course_material_model.dart';
 import '../models/evaluation_criteria_group_student_model.dart';
 import '../models/group_file_model.dart';
 import '../models/group_learning_material_model.dart';
@@ -45,22 +46,25 @@ class GroupService {
     }
   }
 
-  Future<List<GroupLearningMaterialModel>> getGroupLearningMaterial(
-      int id) async {
+  Future<List<CourseMaterialModel>> getGroupCourseMaterials(
+      int groupId, int sessionNumber) async {
     var response = await DioApi().dio.get(dotenv.env['api'].toString() +
-        "learningMaterials/group/" +
-        id.toString());
+        "groups/group/" +
+        groupId.toString() +
+        "/session/" +
+        sessionNumber.toString() +
+        "/courseMaterials");
 
     if (response.statusCode == 200) {
       List decodedList = jsonDecode(json.encode(response.data));
 
-      List<GroupLearningMaterialModel> groupLearningMaterials = decodedList
+      List<CourseMaterialModel> courseLearningMaterials = decodedList
           .map(
-            (dynamic item) => GroupLearningMaterialModel.fromJson(item),
+            (dynamic item) => CourseMaterialModel.fromJson(item),
           )
           .toList();
 
-      return groupLearningMaterials;
+      return courseLearningMaterials;
     } else {
       throw Exception('Unable to retrieve group.');
     }
