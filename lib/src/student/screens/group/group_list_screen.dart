@@ -62,12 +62,7 @@ class _GroupListScreenState extends State<GroupListScreen> {
           } else {
             return RefreshIndicator(
               child: Stack(
-                children: <Widget>[
-                  const Center(
-                    child: NoData(),
-                  ),
-                  ListView()
-                ],
+                children: <Widget>[const NoData(), ListView()],
               ),
               onRefresh: () async {
                 setState(() {});

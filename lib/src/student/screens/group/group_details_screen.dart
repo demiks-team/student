@@ -105,7 +105,7 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
                         evaluationCriteriaGroupStudent:
                             evaluationCriteriaGroupStudent!),
                     AttendanceGroupTab(group: group),
-                    GroupMaterialTab(groupId: group!.id),
+                    GroupMaterialTab(group: group),
                     QuizAndGradesTab(group: group),
                     HomeworkTab(groupId: group!.id),
                   ],
