@@ -148,32 +148,32 @@ class _CourseMaterialScreenState extends State<CourseMaterialScreen> {
                                   .courseMaterialPageContent!
                                   .body
                                   .toString()))),
-                if (courseMaterial!.courseMaterialPages![currentIndex]
-                        .courseMaterialPageContent!.contentType ==
-                    CourseMaterialPageContentType.file)
-                  GestureDetector(
-                      onTap: () async {
-                        _groupService.getFileFromGroupLearningMaterial(
-                            courseMaterial!.courseMaterialPages![currentIndex]
-                                .courseMaterialPageContent!.title
-                                .toString(),
-                            courseMaterial!.courseMaterialPages![currentIndex]
-                                .courseMaterialPageContent!.fileNameOnServer
-                                .toString());
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.download,
-                              color: HexColor.fromHex(AppColors.primaryColor)),
-                          Text(
-                              AppLocalizations.of(context)!.download.toString(),
-                              style: TextStyle(
-                                  color:
-                                      HexColor.fromHex(AppColors.primaryColor),
-                                  fontWeight: FontWeight.bold)),
-                        ],
-                      ))
+                // if (courseMaterial!.courseMaterialPages![currentIndex]
+                //         .courseMaterialPageContent!.contentType ==
+                //     CourseMaterialPageContentType.file)
+                //   GestureDetector(
+                //       onTap: () async {
+                //         _groupService.getFileFromGroupLearningMaterial(
+                //             courseMaterial!.courseMaterialPages![currentIndex]
+                //                 .courseMaterialPageContent!.title
+                //                 .toString(),
+                //             courseMaterial!.courseMaterialPages![currentIndex]
+                //                 .courseMaterialPageContent!.fileNameOnServer
+                //                 .toString());
+                //       },
+                //       child: Row(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         children: [
+                //           Icon(Icons.download,
+                //               color: HexColor.fromHex(AppColors.primaryColor)),
+                //           Text(
+                //               AppLocalizations.of(context)!.download.toString(),
+                //               style: TextStyle(
+                //                   color:
+                //                       HexColor.fromHex(AppColors.primaryColor),
+                //                   fontWeight: FontWeight.bold)),
+                //         ],
+                //       ))
               ]),
             ),
           ),

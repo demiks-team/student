@@ -112,20 +112,20 @@ class _InvoiceDetailsTabState extends State<InvoiceDetailsTab> {
                                                 .toLocal()),
                                         style: const TextStyle(fontSize: 18.0)),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 5, bottom: 5),
-                                    child: IconButton(
-                                      padding: EdgeInsets.zero,
-                                      constraints: const BoxConstraints(),
-                                      icon: Icon(Icons.picture_as_pdf,
-                                          color: HexColor.fromHex(
-                                              AppColors.accentColor)),
-                                      onPressed: () {
-                                        invoiceService.exportPdf(invoice.id);
-                                      },
-                                    ),
-                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(
+                                  //       top: 5, bottom: 5),
+                                  //   child: IconButton(
+                                  //     padding: EdgeInsets.zero,
+                                  //     constraints: const BoxConstraints(),
+                                  //     icon: Icon(Icons.picture_as_pdf,
+                                  //         color: HexColor.fromHex(
+                                  //             AppColors.accentColor)),
+                                  //     onPressed: () {
+                                  //       invoiceService.exportPdf(invoice.id);
+                                  //     },
+                                  //   ),
+                                  // ),
                                 ],
                               ))
                         ],
