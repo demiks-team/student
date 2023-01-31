@@ -34,7 +34,7 @@ class _GroupDetailsTabState extends State<GroupDetailsTab> {
         resultPassCondition = result;
       } else if (result == null && passCondition != null) {
         resultPassCondition = "?/" + passCondition;
-      } else if(result != null && passCondition != null) {
+      } else if (result != null && passCondition != null) {
         resultPassCondition = result + "/" + passCondition;
       }
     }
@@ -55,61 +55,61 @@ class _GroupDetailsTabState extends State<GroupDetailsTab> {
                   const Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 10),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 10, right: 10),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          if ((widget.group.evaluationIsDone != null &&
-                                  widget.group.evaluationIsDone == true) &&
-                              (widget.evaluationCriteriaGroupStudent
-                                          .groupEnrollment !=
-                                      null &&
-                                  widget
-                                          .evaluationCriteriaGroupStudent
-                                          .groupEnrollment!
-                                          .canStudentPrintCertificate !=
-                                      null &&
-                                  widget
-                                          .evaluationCriteriaGroupStudent
-                                          .groupEnrollment!
-                                          .canStudentPrintCertificate ==
-                                      true))
-                            IconButton(
-                              icon: Icon(Icons.workspace_premium,
-                                  color:
-                                      HexColor.fromHex(AppColors.accentColor)),
-                              onPressed: () async => {
-                                await groupService
-                                    .getCertificateStudent(widget.group.id)
-                              },
-                            ),
-                          if ((widget.group.evaluationIsDone != null &&
-                                  widget.group.evaluationIsDone == true) &&
-                              (widget.evaluationCriteriaGroupStudent
-                                          .groupEnrollment !=
-                                      null &&
-                                  widget
-                                          .evaluationCriteriaGroupStudent
-                                          .groupEnrollment!
-                                          .canStudentPrintReportCard !=
-                                      null &&
-                                  widget
-                                          .evaluationCriteriaGroupStudent
-                                          .groupEnrollment!
-                                          .canStudentPrintReportCard ==
-                                      true))
-                            IconButton(
-                              icon: Icon(Icons.summarize,
-                                  color:
-                                      HexColor.fromHex(AppColors.accentColor)),
-                              onPressed: () async => {
-                                await groupService
-                                    .exportReportCardStudent(widget.group.id)
-                              },
-                            ),
-                        ]),
-                  ),
+                  // Container(
+                  //   margin: const EdgeInsets.only(left: 10, right: 10),
+                  //   child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  // if ((widget.group.adminReviewIsDone != null &&
+                  //         widget.group.adminReviewIsDone == true) &&
+                  //     (widget.evaluationCriteriaGroupStudent
+                  //                 .groupEnrollment !=
+                  //             null &&
+                  //         widget
+                  //                 .evaluationCriteriaGroupStudent
+                  //                 .groupEnrollment!
+                  //                 .canStudentPrintCertificate !=
+                  //             null &&
+                  //         widget
+                  //                 .evaluationCriteriaGroupStudent
+                  //                 .groupEnrollment!
+                  //                 .canStudentPrintCertificate ==
+                  //             true))
+                  //   IconButton(
+                  //     icon: Icon(Icons.workspace_premium,
+                  //         color:
+                  //             HexColor.fromHex(AppColors.accentColor)),
+                  //     onPressed: () async => {
+                  //       await groupService
+                  //           .getCertificateStudent(widget.group.id)
+                  //     },
+                  //   ),
+                  // if ((widget.group.adminReviewIsDone != null &&
+                  //         widget.group.adminReviewIsDone == true) &&
+                  //     (widget.evaluationCriteriaGroupStudent
+                  //                 .groupEnrollment !=
+                  //             null &&
+                  //         widget
+                  //                 .evaluationCriteriaGroupStudent
+                  //                 .groupEnrollment!
+                  //                 .canStudentPrintReportCard !=
+                  //             null &&
+                  //         widget
+                  //                 .evaluationCriteriaGroupStudent
+                  //                 .groupEnrollment!
+                  //                 .canStudentPrintReportCard ==
+                  //             true))
+                  //   IconButton(
+                  //     icon: Icon(Icons.badge,
+                  //         color:
+                  //             HexColor.fromHex(AppColors.accentColor)),
+                  //     onPressed: () async => {
+                  //       await groupService
+                  //           .exportReportCardStudent(widget.group.id)
+                  //     },
+                  //   ),
+                  // ]),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5, bottom: 5),
                     child: Text(widget.group.school!.name.toString()),
@@ -134,8 +134,10 @@ class _GroupDetailsTabState extends State<GroupDetailsTab> {
                   ),
                 ]))),
       ),
-      if (widget
-          .evaluationCriteriaGroupStudent.evaluationCriteriaGroup!.isNotEmpty)
+      if (widget.evaluationCriteriaGroupStudent.evaluationCriteriaGroup!
+              .isNotEmpty &&
+          (widget.group.adminReviewIsDone != null &&
+              widget.group.adminReviewIsDone == true))
         Container(
           margin: const EdgeInsets.only(bottom: 10),
           child: SizedBox(

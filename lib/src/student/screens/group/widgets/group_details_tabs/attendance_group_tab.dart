@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:student/src/shared/models/enums.dart';
+import 'package:student/src/shared/models/group_learning_material_model.dart';
 import 'package:student/src/shared/services/group_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -40,6 +42,31 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
 
   Future<GroupStudentModel> getGroupStudent() async {
     return groupService.getStudentAttendances(widget.group!.id);
+  }
+
+  String getStringSessionNumber(SessionSummaryModel session) {
+    String result = "";
+
+    if (session.sessionStatus != GroupSessionStatus.cancelled &&
+        session.sessionNumber != null) {
+      result = session.sessionNumber.toString() +
+          "/" +
+          widget.group!.numberOfSessions.toString();
+    } else if (session.sessionStatus == GroupSessionStatus.cancelled) {
+      result = AppLocalizations.of(context)!.cancelled;
+    } else if (session.sessionStatus == GroupSessionStatus.requested) {
+      result = AppLocalizations.of(context)!.requested;
+    }
+
+    if (session.isCancellationRequested == true) {
+      if (session.sessionStatus == GroupSessionStatus.cancelled) {
+        result += "\n" + AppLocalizations.of(context)!.byStudent;
+      } else {
+        result += "\n" + AppLocalizations.of(context)!.cancellationRequested;
+      }
+    }
+
+    return result;
   }
 
   @override
@@ -130,11 +157,7 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
                         Container(
                             margin: const EdgeInsets.only(top: 5),
                             child: Text(
-                                groupLearningMaterials[index]
-                                        .sessionNumber
-                                        .toString() +
-                                    "/" +
-                                    widget.group!.numberOfSessions.toString(),
+                               getStringSessionNumber(groupLearningMaterials[index]),
                                 style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold)))
                       ])),
