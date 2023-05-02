@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:student/src/shared/services/group_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../shared/helpers/colors/hex_color.dart';
 import '../../../../../shared/helpers/date_time/start_end_datetime.dart';
+import '../../../../../shared/models/enums.dart';
+import '../../../../../shared/models/group_model.dart';
+import '../../../../../shared/models/group_student_model.dart';
 import '../../../../../shared/models/homework_model.dart';
 import '../../../../../shared/theme/colors/app_colors.dart';
-import '../../../../../shared/services/group_service.dart';
 
 class HomeworkTab extends StatefulWidget {
-  const HomeworkTab({Key? key, this.groupId}) : super(key: key);
-  final int? groupId;
+  const HomeworkTab({Key? key, this.group, this.groupStudent})
+      : super(key: key);
+  final GroupModel? group;
+  final GroupStudentModel? groupStudent;
 
   @override
   State<HomeworkTab> createState() => _HomeworkTabState();
@@ -37,7 +42,8 @@ class _HomeworkTabState extends State<HomeworkTab>
   }
 
   Future<List<HomeworkModel>> getHomeworks() async {
-    return groupService.getHomeworks(widget.groupId!);
+    return groupService.getHomeworks(
+        widget.group!.id, widget.group!.numberOfCompletedSessions!);
   }
 
   @override
@@ -68,6 +74,47 @@ class _HomeworkTabState extends State<HomeworkTab>
     );
   }
 
+  String getDeadline(HomeworkModel homework) {
+    if (homework.deadlineType == DeadlineType.session) {
+      if (homework.sessionNumber != null && homework.deadline != null) {
+        var result = homework.sessionNumber! + homework.deadline!;
+        return AppLocalizations.of(context)!.session + ' $result';
+      }
+    } else {
+      return getHomeworkDeadline(homework);
+    }
+
+    return '';
+  }
+
+  getHomeworkDeadline(HomeworkModel homework) {
+    if (widget.groupStudent != null) {
+      if (widget.groupStudent!.sessions != null) {
+        String? sessionDate = widget.groupStudent!.sessions!
+            .firstWhere(
+                (element) => element.sessionNumber == homework.sessionNumber)
+            .sessionDate;
+
+        if (sessionDate != null && homework.deadline != null) {
+          var result = addDays(sessionDate, homework.deadline);
+          if (result != null) {
+            return DateFormat("MMM d, yyyy").format(result);
+          }
+        }
+      }
+    }
+  }
+
+  DateTime? addDays(String? sessionDate, int? days) {
+    if (sessionDate != null && days != null) {
+      var date = DateTime.parse(sessionDate);
+      var day = date.day + days;
+      var newDate = DateTime(date.year, date.month, day);
+      return newDate;
+    }
+    return null;
+  }
+
   ListView _buildHomeworks(
       BuildContext context, List<HomeworkModel>? homeworks) {
     return ListView.builder(
@@ -88,7 +135,7 @@ class _HomeworkTabState extends State<HomeworkTab>
                           Container(
                               margin: const EdgeInsets.only(top: 1),
                               child: Text(
-                                convertDateToLocal(homeworks[index].createdOn!),
+                                '${AppLocalizations.of(context)!.deadline}: ${homeworks[index].deadline.toString()}',
                                 style: const TextStyle(
                                     fontSize: 20, fontWeight: FontWeight.bold),
                               )),
@@ -100,13 +147,10 @@ class _HomeworkTabState extends State<HomeworkTab>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (homeworks[index].deadline != null)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5, bottom: 5),
-                          child: Text(AppLocalizations.of(context)!.deadline +
-                              ": " +
-                              convertDateToLocal(homeworks[index].deadline!)),
-                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, bottom: 5),
+                        child: Text(getDeadline(homeworks[index])),
+                      ),
                       if (homeworks[index].description != null)
                         Padding(
                           padding: const EdgeInsets.only(top: 5, bottom: 5),

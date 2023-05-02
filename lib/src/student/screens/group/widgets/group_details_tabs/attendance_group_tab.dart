@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:student/src/shared/models/enums.dart';
-import 'package:student/src/shared/models/group_learning_material_model.dart';
 import 'package:student/src/shared/services/group_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -10,11 +9,12 @@ import '../../../../../shared/models/group_model.dart';
 import '../../../../../shared/models/group_student_model.dart';
 import '../../../../../shared/models/session_summary_model.dart';
 import '../../../../../shared/theme/colors/app_colors.dart';
-import '../../../../../shared/services/group_service.dart';
 
 class AttendanceGroupTab extends StatefulWidget {
-  const AttendanceGroupTab({Key? key, this.group}) : super(key: key);
+  const AttendanceGroupTab({Key? key, this.group, this.groupStudent})
+      : super(key: key);
   final GroupModel? group;
+  final GroupStudentModel? groupStudent;
 
   @override
   State<AttendanceGroupTab> createState() => _AttendanceGroupTabState();
@@ -22,26 +22,22 @@ class AttendanceGroupTab extends StatefulWidget {
 
 class _AttendanceGroupTabState extends State<AttendanceGroupTab>
     with AutomaticKeepAliveClientMixin {
-  Future<GroupStudentModel>? groupStudentModel;
+  GroupStudentModel? groupStudent;
   final GroupService groupService = GroupService();
   final ScrollController controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    groupStudentModel = getGroupStudent();
+    groupStudent = widget.groupStudent;
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      body: _buildBody(context),
+      body: _buildSessionSummary(context, groupStudent!.sessions),
     );
-  }
-
-  Future<GroupStudentModel> getGroupStudent() async {
-    return groupService.getStudentAttendances(widget.group!.id);
   }
 
   String getStringSessionNumber(SessionSummaryModel session) {
@@ -71,30 +67,6 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
 
   @override
   bool get wantKeepAlive => true;
-
-  FutureBuilder<List<SessionSummaryModel>> _buildBody(BuildContext context) {
-    return FutureBuilder<List<SessionSummaryModel>>(
-      future: groupStudentModel!.then((value) => value.sessions!),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          final List<SessionSummaryModel>? sessionSummary = snapshot.data;
-          if (sessionSummary!.isNotEmpty) {
-            return _buildSessionSummary(context, sessionSummary);
-          } else {
-            return Center(
-                child: Text(AppLocalizations.of(context)!.noSessionInTheClass));
-          }
-        } else {
-          return Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 2.0,
-              color: HexColor.fromHex(AppColors.accentColor),
-            ),
-          );
-        }
-      },
-    );
-  }
 
   ListView _buildSessionSummary(
       BuildContext context, List<SessionSummaryModel>? groupLearningMaterials) {
@@ -157,7 +129,8 @@ class _AttendanceGroupTabState extends State<AttendanceGroupTab>
                         Container(
                             margin: const EdgeInsets.only(top: 5),
                             child: Text(
-                               getStringSessionNumber(groupLearningMaterials[index]),
+                                getStringSessionNumber(
+                                    groupLearningMaterials[index]),
                                 style: const TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.bold)))
                       ])),

@@ -21,8 +21,6 @@ enum ProgramSkill {
 
 enum ProgramLevel { _, beginner, intermediate, advanced }
 
-enum GroupSessionStatus {
-    defaultt,
-    cancelled,
-    requested
-}
+enum GroupSessionStatus { defaultt, cancelled, requested }
+
+enum DeadlineType { _, session, day }
