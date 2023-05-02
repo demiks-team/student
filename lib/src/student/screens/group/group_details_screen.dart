@@ -86,7 +86,7 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
           theme: ThemeData(
               primarySwatch: buildMaterialColor(const Color(0xffffffff))),
           home: DefaultTabController(
-              length: 5,
+              length: 4, // 5
               child: Scaffold(
                 appBar: AppBar(
                   title: Text(group!.title.toString()),
@@ -106,7 +106,7 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
                       Tab(text: AppLocalizations.of(context)!.details),
                       Tab(text: AppLocalizations.of(context)!.attendance),
                       Tab(text: AppLocalizations.of(context)!.learningMaterial),
-                      Tab(text: AppLocalizations.of(context)!.quizGrades),
+                      // Tab(text: AppLocalizations.of(context)!.quizGrades),
                       Tab(text: AppLocalizations.of(context)!.homework),
                     ],
                   ),
@@ -120,7 +120,7 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
                     AttendanceGroupTab(
                         group: group, groupStudent: groupStudent),
                     GroupMaterialTab(group: group),
-                    QuizAndGradesTab(group: group),
+                    // QuizAndGradesTab(group: group),
                     HomeworkTab(group: group, groupStudent: groupStudent),
                   ],
                 ),
