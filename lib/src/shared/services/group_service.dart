@@ -145,10 +145,13 @@ class GroupService {
     }
   }
 
-  Future<List<HomeworkModel>> getHomeworks(int groupId) async {
+  Future<List<HomeworkModel>> getHomeworks(
+      int groupId, int sessionNumber) async {
     var response = await DioApi().dio.get(dotenv.env['api'].toString() +
         "groups/group/" +
         groupId.toString() +
+        "/session/" +
+        sessionNumber.toString() +
         "/homeworks");
 
     if (response.statusCode == 200) {

@@ -118,10 +118,6 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 5, bottom: 5),
-                        child: Text(invoices[index].schoolName.toString()),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5, bottom: 5),
                         child: Text("\$" +
                             invoices[index].subtotal!.toStringAsFixed(2)),
                       ),

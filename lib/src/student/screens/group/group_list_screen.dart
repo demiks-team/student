@@ -110,10 +110,6 @@ class _GroupListScreenState extends State<GroupListScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5, bottom: 5),
-                        child: Text(groups[index].school!.name.toString()),
-                      ),
                       if (groups[index].teacher != null)
                         Padding(
                           padding: const EdgeInsets.only(top: 5, bottom: 5),
